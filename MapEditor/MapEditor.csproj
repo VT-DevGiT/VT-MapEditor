@@ -75,6 +75,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\CommandGiveTool.cs" />
+    <Compile Include="Command\CommandEdit.cs" />
+    <Compile Include="Command\CommandLoadMap.cs" />
+    <Compile Include="Command\CommandUnloadMap.cs" />
+    <Compile Include="Command\MainCommand.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapShematic.cs" />

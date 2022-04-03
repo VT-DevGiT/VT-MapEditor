@@ -28,7 +28,7 @@ namespace MapEditor
         public Map CurentEditedMap { get; set; }
         public List<Map> LoadedMaps { get; set; }
 
-        public HashSet<Map> Maps { get; private set; } = new HashSet<Map>();
+        public Dictionary<string, Map> Maps { get; private set; } = new Dictionary<string, Map>();
         private List<SynapseObject> SpawnedObjects = new List<SynapseObject>();
 
 
@@ -55,8 +55,8 @@ namespace MapEditor
             LoadMapSchematics();
             foreach (var map in Maps)
             {
-                if (Config.MapsLoaded.Contains(map.Name))
-                    SpawnMap(map);
+                if (Config.MapsLoaded.Contains(map.Value.Name))
+                    SpawnMap(map.Value);
             }
         }
 
@@ -66,17 +66,20 @@ namespace MapEditor
             LoadMapSchematics();
             foreach (var map in Maps)
             {
-                if (Config.MapsLoaded.Contains(map.Name))
-                    SpawnMap(map);
+                if (Config.MapsLoaded.Contains(map.Value.Name))
+                    SpawnMap(map.Value);
             }
         }
 
+        public Map GetMap(string name)
+            => PluginClass.Instance.Maps.ContainsKey(name) ? PluginClass.Instance.Maps[name] : null;
+        
 
         public void DespawnMap(Map map)
         {
             if (LoadedMaps.Contains(map))
                 LoadedMaps.Remove(map);
-
+            
             for (var i = 0; SpawnedObjects.Count > i; i++)
             {
                 if (!SpawnedObjects[i].ObjectData.ContainsKey("Map"))
@@ -131,13 +134,13 @@ namespace MapEditor
                             continue;
                         }
                     }
-                    if (Maps.Contains(map))
+                    if (Maps.ContainsKey(map.Name))
                     {
                         Logger.Get.Error($"MapShematic already registered, MapShematic ignored !\n\tFile : {file}");
                         continue;
                     }
 
-                    Maps.Add(map);
+                    Maps.Add(map.Name, map);
                 }
                 catch (Exception ex)
                 {
