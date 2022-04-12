@@ -31,24 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lib.Harmony.2.2.1\lib\net472\0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.9.0\lib\net472\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.9.0\lib\net472\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="LiteDB, Version=5.0.11.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiteDB.5.0.11\lib\net45\LiteDB.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirror, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.9.0\lib\net472\Mirror.dll</HintPath>
-    </Reference>
-    <Reference Include="Synapse, Version=2.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.9.0\lib\net472\Synapse.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime" />
@@ -58,40 +40,38 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.9.0\lib\net472\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.9.0\lib\net472\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SynapseSL.2.9.0\lib\net472\UnityEngine.PhysicsModule.dll</HintPath>
-    </Reference>
     <Reference Include="VT-Api">
       <HintPath>..\ref\VT-Api.dll</HintPath>
     </Reference>
-    <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
-      <HintPath>..\packages\YamlDotNet.11.2.1\lib\net45\YamlDotNet.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\CommandSave.cs" />
     <Compile Include="Command\CommandGiveTool.cs" />
     <Compile Include="Command\CommandEdit.cs" />
+    <Compile Include="Command\CommandLoadedMap.cs" />
     <Compile Include="Command\CommandLoadMap.cs" />
     <Compile Include="Command\CommandUnloadMap.cs" />
     <Compile Include="Command\MainCommand.cs" />
+    <Compile Include="Cursor.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Map.cs" />
-    <Compile Include="MapShematic.cs" />
-    <Compile Include="PluginClass.cs" />
-    <Compile Include="PluginConfig.cs" />
+    <Compile Include="MapSchematic.cs" />
+    <Compile Include="Plugin.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToolItem\Destroyer.cs" />
+    <Compile Include="ToolItem\Mover.cs" />
+    <Compile Include="ToolItem\Positioner.cs" />
+    <Compile Include="ToolItem\Scaler.cs" />
+    <Compile Include="ToolItem\Selector.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ToolItem\" />
+    <PackageReference Include="Lib.Harmony">
+      <Version>2.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="SynapseSL">
+      <Version>2.9.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

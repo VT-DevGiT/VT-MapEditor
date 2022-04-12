@@ -4,16 +4,15 @@ using VT_Api.Core.Command;
 namespace MapEditor.Command
 {
     [SubCommandInformation(
-        Name = "Edit",
-        Aliases = new string[] { "EditMap" },
+        Name = "Save",
+        Aliases = new string[] { "SaveMap" },
         Description = "Enter in the Edit mod",
         Permission = "ME.Edit",
         Platforms = new Platform[] { Platform.RemoteAdmin, Platform.ServerConsole },
         MainCommandName = "MapEditor",
-        Usage = "specified the name of the Map for Edit this map or send stop for top the edit mod",
-        Arguments = new string[] { "Map Name/NONE" }
+        Usage = "Need to be in the edit mod"
         )]
-    internal class CommandEdit : ISubCommand
+    internal class CommandSave : ISubCommand
     {
         public CommandResult Execute(CommandContext context)
         {

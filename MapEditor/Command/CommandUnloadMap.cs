@@ -1,9 +1,5 @@
 ﻿using Synapse.Command;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VT_Api.Core.Command;
 
 namespace MapEditor.Command
@@ -34,12 +30,12 @@ namespace MapEditor.Command
                         mapName += " ";
                 }
 
-                var map = PluginClass.Instance.GetMap(mapName);
-                PluginClass.Instance.DespawnMap(map);
+                var map = Plugin.Instance.GetMap(mapName);
+                Plugin.Instance.DespawnMap(map);
             }
             else
             {
-                PluginClass.Instance.DespawnMaps();
+                Plugin.Instance.DespawnMaps();
                 result.Message = "All Maps was despawn";
                 result.State = CommandResultState.Ok;
             }

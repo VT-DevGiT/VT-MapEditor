@@ -5,13 +5,13 @@ using VT_Api.Core.Command;
 namespace MapEditor.Command
 {
     [SubCommandInformation(
-        Name = "UnloadMap",
-        Aliases = new string[] { "Unload" },
+        Name = "loadMap",
+        Aliases = new string[] { "load" },
         Description = "Load the specified map",
         Permission = "ME.Manage",
         Platforms = new Platform[] { Platform.RemoteAdmin, Platform.ServerConsole },
         MainCommandName = "MapEditor",
-        Usage = "specified the name of the Map for unload only this map",
+        Usage = "specified the name of the Map to load !",
         Arguments = new string[] { "Map Name" }
         )]
     internal class CommandLoadMap : ISubCommand
@@ -30,12 +30,12 @@ namespace MapEditor.Command
                         mapName += " ";
                 }
 
-                var map = PluginClass.Instance.GetMap(mapName);
+                var map = Plugin.Instance.GetMap(mapName);
                 if (map != null)
                 {
                     result.Message = "Map spawned";
                     result.State = CommandResultState.Ok;
-                    PluginClass.Instance.SpawnMap(map);
+                    Plugin.Instance.SpawnMap(map);
                 }
                 else
                 {

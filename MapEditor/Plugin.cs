@@ -21,8 +21,14 @@ namespace MapEditor
             SynapsePatch = SynapseVersion.Patch,
             Version = "v1.0.0"
             )]
-    public class PluginClass : VtAbstractPlugin<PluginClass, EventHandlers, PluginConfig>
+    public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {
+        public const string ObjectKeyMap = "Map";
+        public const string ObjectKeySave = "Save";
+        public const string ObjectKeyID = "ID";
+
+        public const string MapNone = "NONE";
+
         public override bool AutoRegister => true;
 
         public Map CurentEditedMap { get; set; }
@@ -72,7 +78,7 @@ namespace MapEditor
         }
 
         public Map GetMap(string name)
-            => PluginClass.Instance.Maps.ContainsKey(name) ? PluginClass.Instance.Maps[name] : null;
+            => Plugin.Instance.Maps.ContainsKey(name) ? Plugin.Instance.Maps[name] : null;
         
 
         public void DespawnMap(Map map)
@@ -82,9 +88,9 @@ namespace MapEditor
             
             for (var i = 0; SpawnedObjects.Count > i; i++)
             {
-                if (!SpawnedObjects[i].ObjectData.ContainsKey("Map"))
+                if (!SpawnedObjects[i].ObjectData.ContainsKey(ObjectKeyMap))
                     continue;
-                if ((SpawnedObjects[i].ObjectData["Map"] as string) == map.Name)
+                if ((SpawnedObjects[i].ObjectData[ObjectKeyMap] as string) == map.Name)
                 {
                     SpawnedObjects[i].Destroy();
                     SpawnedObjects.Remove(SpawnedObjects[i]);
@@ -108,10 +114,7 @@ namespace MapEditor
                 LoadedMaps.Add(map);
             var newObjects = map.Spawn();
             foreach (var newObject in newObjects)
-            {
                 SpawnedObjects.Add(newObject);
-                newObject.ObjectData["Map"] = map.Name;
-            }
         }
 
         public void LoadMapSchematics()
@@ -126,7 +129,7 @@ namespace MapEditor
                     var section = syml.Sections.First().Value;
                     var map = section.LoadAs<Map>();
                     
-                    foreach (var shematic in map.MapShematics)
+                    foreach (var shematic in map.MapSchematic)
                     {
                         if (!SchematicHandler.Get.IsIDRegistered(shematic.ID))
                         {

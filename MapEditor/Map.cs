@@ -7,8 +7,8 @@ namespace MapEditor
 {
     public class Map : IConfigSection
     {
-        public string Name { get; set; } = "NONE";
-        public List<MapShematic> MapShematics { get; set; } = new List<MapShematic>();
+        public string Name { get; set; } = Plugin.MapNone;
+        public List<MapSchematic> MapSchematic { get; set; } = new List<MapSchematic>();
 
         public override int GetHashCode()
         {
@@ -18,8 +18,12 @@ namespace MapEditor
         internal List<SynapseObject> Spawn()
         {
             var spawnObject = new List<SynapseObject>();
-            foreach (var shematic in MapShematics)
-                spawnObject.Add(shematic.Spawn());
+            foreach (var schematic in MapSchematic)
+            {
+                var @object = schematic.Spawn();
+                spawnObject.Add(@object);
+                @object.ObjectData.Add(Plugin.ObjectKeyMap, Name);
+            }
             return spawnObject;
         }
     }
