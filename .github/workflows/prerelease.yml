@@ -47,4 +47,4 @@ jobs:
         prerelease: true
         title: "Development Build"
         files: |
-          ./VT-Api/bin/PreRelease/MapEditor.dll
+          ./MapEditor/bin/PreRelease/MapEditor.dll
