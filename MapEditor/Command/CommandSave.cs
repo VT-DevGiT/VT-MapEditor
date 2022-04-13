@@ -18,7 +18,13 @@ namespace MapEditor.Command
         {
             var result = new CommandResult();
 
-            
+            if (Plugin.Instance.CurentEditedMap == null || Plugin.Instance.CurentEditedMap.Name == Plugin.MapNone)
+            {
+                result.Message = "You need to ave a map in Edit mod";
+                result.State = CommandResultState.Error;
+            }
+
+            Plugin.Instance.SaveMapSchematic(Plugin.Instance.CurentEditedMap, Plugin.Instance.CurentEditedMap.Name);
 
             return result;
         }

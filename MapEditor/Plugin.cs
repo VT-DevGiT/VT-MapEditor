@@ -24,19 +24,30 @@ namespace MapEditor
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {
         public const string ObjectKeyMap = "Map";
-        public const string ObjectKeySave = "Save";
         public const string ObjectKeyID = "ID";
 
         public const string MapNone = "NONE";
 
         public override bool AutoRegister => true;
 
-        public Map CurentEditedMap { get; set; }
+        private Map curentEditedMap;
+        public Map CurentEditedMap 
+        {
+            get => curentEditedMap;
+            set
+            {
+                if (curentEditedMap != null && curentEditedMap.Name != MapNone)
+                    DespawnEditingMap();
+                
+                SpawnMap(value, true);
+                curentEditedMap = value;
+            }
+        }
         public List<Map> LoadedMaps { get; set; }
 
         public Dictionary<string, Map> Maps { get; private set; } = new Dictionary<string, Map>();
-        private List<SynapseObject> SpawnedObjects = new List<SynapseObject>();
-
+        public List<SynapseObject> SpawnedObjects { get; } = new List<SynapseObject>();
+        public List<SynapseObject> EditingObjects { get; } = new List<SynapseObject>();
 
         private string _mapSchematicDirectory;
         public string MapSchematicDirectory
@@ -99,6 +110,15 @@ namespace MapEditor
             }
         }
 
+        public void DespawnEditingMap()
+        {
+            while (EditingObjects.Count != 0)
+            {
+                SpawnedObjects[0].Destroy();
+                SpawnedObjects.Remove(SpawnedObjects[0]);
+            }
+        }
+
         public void DespawnMaps()
         {
             foreach (var synapseObject in SpawnedObjects)
@@ -108,13 +128,17 @@ namespace MapEditor
             LoadedMaps.Clear();
         }
 
-        public void SpawnMap(Map map)
+        public void SpawnMap(Map map, bool editing = false)
         {
             if (!LoadedMaps.Contains(map))
                 LoadedMaps.Add(map);
             var newObjects = map.Spawn();
-            foreach (var newObject in newObjects)
-                SpawnedObjects.Add(newObject);
+            if (!editing)
+                foreach (var newObject in newObjects)
+                    SpawnedObjects.Add(newObject);
+            else
+                foreach (var newObject in newObjects)
+                    EditingObjects.Add(newObject);
         }
 
         public void LoadMapSchematics()

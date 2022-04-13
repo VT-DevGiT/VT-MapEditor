@@ -1,0 +1,1647 @@
+﻿[GATE-B]
+{
+iD: 111
+name: GATE-B
+customAttributes: 
+primitiveObjects:
+- primitiveType: Cube
+  position:
+    x: 0.0375000127
+    y: 0.0706599951
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 90
+  scale:
+    x: 0.046454709
+    y: 0.139620408
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.0369000137
+    y: -0.00653999997
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 0
+  scale:
+    x: 0.0464547016
+    y: 0.196279779
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.208800003
+    y: -0.000860000204
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 0
+    z: 180
+  scale:
+    x: 0.102286898
+    y: -0.0462619402
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.208800003
+    y: -0.0762799978
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 0
+    z: 180
+  scale:
+    x: 0.102286898
+    y: -0.0462619402
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.208800003
+    y: 0.0814400017
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 0
+    z: 180
+  scale:
+    x: 0.102286898
+    y: 0.0462619402
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.159199998
+    y: 0.00254000002
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 0
+    z: 180
+  scale:
+    x: 0.0464547016
+    y: 0.204026684
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.354734033
+    y: 0
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 0
+    z: 90
+  scale:
+    x: 0.0464547127
+    y: 0.142818704
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.569524825
+    y: -0.00599683775
+    z: -0.00273323059
+  rotation:
+    x: 335.083527
+    y: 270
+    z: 90
+  scale:
+    x: 0.0180000011
+    y: 0.00300000003
+    z: 0.0149999997
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.554358244
+    y: 0.026652392
+    z: -0.00273323059
+  rotation:
+    x: 335.083527
+    y: 270
+    z: 90
+  scale:
+    x: 0.0180000011
+    y: 0.00300000003
+    z: 0.0149999997
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.556500018
+    y: 0.00779999793
+    z: -0.00272989273
+  rotation:
+    x: 20.0835361
+    y: 270
+    z: 90
+  scale:
+    x: 0.0300000049
+    y: 0.00300000072
+    z: 0.0300000031
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.592686236
+    y: 0.0246097259
+    z: -0.00272989273
+  rotation:
+    x: 335.083527
+    y: 270
+    z: 90
+  scale:
+    x: 0.0180000011
+    y: 0.00300000003
+    z: 0.0599999987
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.502285063
+    y: -0.0538810901
+    z: -0.00273323059
+  rotation:
+    x: 88.7664719
+    y: 89.9999847
+    z: 270
+  scale:
+    x: 0.0180000011
+    y: 0.00300000003
+    z: 0.0150000006
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.538276732
+    y: -0.0546561331
+    z: -0.00273323059
+  rotation:
+    x: 88.7664719
+    y: 89.9999847
+    z: 270
+  scale:
+    x: 0.0180000011
+    y: 0.00300000003
+    z: 0.0150000006
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.520409882
+    y: -0.048270002
+    z: -0.00272989273
+  rotation:
+    x: 43.7663994
+    y: 90
+    z: 270
+  scale:
+    x: 0.030000031
+    y: 0.00300000072
+    z: 0.0300000329
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.519551039
+    y: -0.0881607533
+    z: -0.00272989273
+  rotation:
+    x: 88.7664719
+    y: 89.9999847
+    z: 270
+  scale:
+    x: 0.0180000011
+    y: 0.00300000003
+    z: 0.0600000024
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.490661263
+    y: 0.0280656442
+    z: -0.00273323059
+  rotation:
+    x: 328.27652
+    y: 90
+    z: 270
+  scale:
+    x: 0.0180000085
+    y: 0.00300000003
+    z: 0.015000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.471731603
+    y: -0.00255580805
+    z: -0.00273323059
+  rotation:
+    x: 328.27652
+    y: 90
+    z: 270
+  scale:
+    x: 0.0180000085
+    y: 0.00300000003
+    z: 0.015000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.486299932
+    y: 0.00959999673
+    z: -0.00272989273
+  rotation:
+    x: 283.276489
+    y: 90
+    z: 270
+  scale:
+    x: 0.0300000254
+    y: 0.00300000072
+    z: 0.0300000291
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.452361345
+    y: 0.0305802226
+    z: -0.00272989273
+  rotation:
+    x: 328.27652
+    y: 90
+    z: 270
+  scale:
+    x: 0.0180000085
+    y: 0.00300000003
+    z: 0.0600000322
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.639600158
+    y: -0.0747000054
+    z: -0.00299978256
+  rotation:
+    x: 30.8147545
+    y: 270
+    z: 90
+  scale:
+    x: 0.050999999
+    y: 0.00126300007
+    z: 0.053009402
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.521099985
+    y: 0.126300007
+    z: -0.00299978256
+  rotation:
+    x: 0
+    y: 270
+    z: 90
+  scale:
+    x: 0.0566868223
+    y: 0.00126300007
+    z: 0.0510000028
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.402839899
+    y: -0.0768000036
+    z: -0.00299978256
+  rotation:
+    x: 328.652985
+    y: 270
+    z: 90
+  scale:
+    x: 0.0510000065
+    y: 0.00126300007
+    z: 0.0552329943
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.64199996
+    y: -0.0762000084
+    z: -0.00360012054
+  rotation:
+    x: 30.8147545
+    y: 270
+    z: 90
+  scale:
+    x: 0.0690000057
+    y: 3.00000011E-05
+    z: 0.0690000206
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.3998999
+    y: -0.0786000043
+    z: -0.00360012054
+  rotation:
+    x: 328.652985
+    y: 270
+    z: 90
+  scale:
+    x: 0.0690000057
+    y: 3.00000047E-05
+    z: 0.0690000057
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cylinder
+  position:
+    x: -0.521099985
+    y: -0.00900000334
+    z: -0.00390005112
+  rotation:
+    x: 0
+    y: 270
+    z: 90
+  scale:
+    x: 0.120000005
+    y: 0.000300000014
+    z: 0.120000005
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cylinder
+  position:
+    x: -0.521099985
+    y: -0.00900000334
+    z: -0.00305986404
+  rotation:
+    x: 0
+    y: 270
+    z: 90
+  scale:
+    x: 0.150000006
+    y: 0.000900000043
+    z: 0.150000006
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cylinder
+  position:
+    x: -0.521099985
+    y: -0.00900000334
+    z: -0.00360012054
+  rotation:
+    x: 0
+    y: 270
+    z: 90
+  scale:
+    x: 0.228
+    y: 0.000300000014
+    z: 0.228
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cylinder
+  position:
+    x: -0.521099985
+    y: -0.00900000334
+    z: -0.00360012054
+  rotation:
+    x: 0
+    y: 270
+    z: 90
+  scale:
+    x: 0.248999998
+    y: 3.00000011E-05
+    z: 0.248999998
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cylinder
+  position:
+    x: -0.521099985
+    y: -0.00900000334
+    z: -0.00299978256
+  rotation:
+    x: 0
+    y: 270
+    z: 90
+  scale:
+    x: 0.300000012
+    y: 0.000600000028
+    z: 0.300000012
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.521099985
+    y: 0.129600003
+    z: -0.00360012054
+  rotation:
+    x: 0
+    y: 270
+    z: 90
+  scale:
+    x: 0.0690000057
+    y: 3.00000011E-05
+    z: 0.0690000057
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.138778001
+    y: -0.00490200426
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 16.6584492
+  scale:
+    x: 0.0396913067
+    y: 0.195980012
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.107177995
+    y: -0.042302005
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 90
+  scale:
+    x: 0.0466977842
+    y: 0.112355858
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.163938001
+    y: -0.102302007
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 90
+  scale:
+    x: 0.00443398207
+    y: 0.0480463132
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.183055997
+    y: -0.0941200033
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 16.6584492
+  scale:
+    x: 0.00599616626
+    y: 0.0142816408
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.0755779892
+    y: -0.00490200426
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 343.34201
+  scale:
+    x: 0.0396913029
+    y: 0.195980027
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.107177995
+    y: 0.0751179978
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 90
+  scale:
+    x: 0.0390440226
+    y: 0.0450247936
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.150937989
+    y: -0.0720220059
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 16.6584492
+  scale:
+    x: 0.0396913067
+    y: 0.0559366159
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.171177983
+    y: -0.0978820026
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 90
+  scale:
+    x: 0.00836249068
+    y: 0.0228729881
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.0635979921
+    y: -0.0714420006
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 343.34201
+  scale:
+    x: 0.0396913029
+    y: 0.0559366122
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.0504179932
+    y: -0.102302007
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 270
+  scale:
+    x: -0.00443398161
+    y: 0.0480463132
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.0312999934
+    y: -0.0941200033
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 343.341553
+  scale:
+    x: -0.00599616626
+    y: 0.0142816408
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.0431779921
+    y: -0.0978820026
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 270
+  scale:
+    x: -0.00836248975
+    y: 0.0228729881
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.306879997
+    y: -0.0494199991
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 263.508698
+  scale:
+    x: -0.0187316071
+    y: 0.0462619588
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.303899974
+    y: -0.0625200048
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 250.795456
+  scale:
+    x: -0.0187315959
+    y: 0.0462619327
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.299239993
+    y: -0.0704200044
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 227.975403
+  scale:
+    x: -0.0187316015
+    y: 0.0462619439
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.291719973
+    y: -0.0760200024
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 205.522781
+  scale:
+    x: -0.018731609
+    y: 0.0462619662
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.280399978
+    y: -0.0806800053
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 196.982529
+  scale:
+    x: -0.0127847902
+    y: 0.0462619439
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.307679981
+    y: -0.00262000202
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 0
+  scale:
+    x: -0.0464547016
+    y: 0.0818530917
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.306879997
+    y: 0.0440999977
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 96.4912949
+  scale:
+    x: -0.0187316071
+    y: -0.0462619588
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.303899974
+    y: 0.0572000034
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 109.204544
+  scale:
+    x: -0.0187315959
+    y: -0.0462619327
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.299239993
+    y: 0.0651000068
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 132.024597
+  scale:
+    x: -0.0187316015
+    y: -0.0462619439
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.291719973
+    y: 0.0707000047
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 154.477219
+  scale:
+    x: -0.018731609
+    y: -0.0462619774
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.280399978
+    y: 0.0753600001
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 163.017471
+  scale:
+    x: -0.0127847902
+    y: -0.0462619439
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.258779973
+    y: -0.0815200061
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 0
+  scale:
+    x: 0.0447768793
+    y: 0.0462619402
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.255099982
+    y: 0.0762199983
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 0
+  scale:
+    x: 0.0520889461
+    y: 0.0462619402
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.218159974
+    y: -0.0704200044
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 132.024597
+  scale:
+    x: 0.0187316015
+    y: 0.0462619439
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.225679979
+    y: -0.0760200024
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 154.477219
+  scale:
+    x: 0.018731609
+    y: 0.0462619774
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.236999989
+    y: -0.0806800053
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 163.017471
+  scale:
+    x: 0.0127847902
+    y: 0.0462619439
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.209719986
+    y: -0.0172200035
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 0
+  scale:
+    x: 0.0464547016
+    y: 0.0597106703
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.210519984
+    y: -0.0494199991
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 96.4912949
+  scale:
+    x: 0.0187316071
+    y: 0.0462619588
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.213499978
+    y: -0.0625200048
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 109.204544
+  scale:
+    x: 0.0187315959
+    y: 0.0462619327
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.24149999
+    y: -0.00862000138
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 0
+  scale:
+    x: 0.0464547016
+    y: 0.0421387926
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.21389842
+    y: 0.0537866056
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 260.934967
+  scale:
+    x: 0.0187315978
+    y: -0.0462619476
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.217094883
+    y: 0.0623835996
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 238.114899
+  scale:
+    x: 0.0187315959
+    y: -0.0462619402
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.223511577
+    y: 0.069219999
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 215.662292
+  scale:
+    x: 0.0187316127
+    y: -0.0462619588
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: -0.233834416
+    y: 0.0758000538
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 207.12204
+  scale:
+    x: 0.0127847902
+    y: -0.0462619439
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Quad
+  position:
+    x: 0
+    y: 0
+    z: 0
+  rotation:
+    x: 0
+    y: 0
+    z: 0
+  scale:
+    x: 1.5
+    y: 0.400000006
+    z: 1
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.467700005
+    y: -0.00248000259
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 0
+  scale:
+    x: 0.0464547016
+    y: 0.204026684
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.499520004
+    y: 0.0764000043
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 0
+  scale:
+    x: 0.0565589741
+    y: 0.0462619402
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.499520004
+    y: -0.0813800022
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 0
+  scale:
+    x: 0.0565589741
+    y: 0.0462619402
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.526419997
+    y: 0.0746000037
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 25.0968704
+  scale:
+    x: 0.0187316053
+    y: 0.0462619439
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.535579979
+    y: 0.0683000013
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 43.408802
+  scale:
+    x: 0.0187316071
+    y: 0.0462619364
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.543720007
+    y: 0.0584000014
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 57.5437012
+  scale:
+    x: 0.018731609
+    y: 0.0462619476
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.546499968
+    y: 0.0506799929
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 82.5980606
+  scale:
+    x: 0.0187316053
+    y: 0.0462619439
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.547100008
+    y: 0.0360799991
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 92.6603699
+  scale:
+    x: 0.0187316053
+    y: 0.0462619402
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.544860005
+    y: 0.025539998
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 111.458916
+  scale:
+    x: 0.0187316034
+    y: 0.0462619327
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.53836
+    y: 0.012459998
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 121.520828
+  scale:
+    x: 0.0187316053
+    y: 0.0462619439
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.515389025
+    y: -0.00127204473
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 0
+  scale:
+    x: 0.0924423561
+    y: -0.0405283533
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.549679995
+    y: -0.024720002
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 66.7367096
+  scale:
+    x: 0.0187316053
+    y: 0.0462619364
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.553359985
+    y: -0.0372200012
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 80.5405731
+  scale:
+    x: 0.018731609
+    y: 0.0462619439
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.543299973
+    y: -0.0140000032
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 51.8233337
+  scale:
+    x: 0.0187316034
+    y: 0.0462619439
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.553680003
+    y: -0.049279999
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 96.4912949
+  scale:
+    x: 0.0187316015
+    y: 0.0462619513
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.550700009
+    y: -0.0623800047
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 109.204544
+  scale:
+    x: 0.0187316034
+    y: 0.046261929
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.546039999
+    y: -0.070280008
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 132.024597
+  scale:
+    x: 0.0187316015
+    y: 0.0462619364
+    z: 0.00160000008
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.538519979
+    y: -0.075880006
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 154.477219
+  scale:
+    x: 0.018731609
+    y: 0.0462619662
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+- primitiveType: Cube
+  position:
+    x: 0.527199984
+    y: -0.0805400014
+    z: -0.00400018692
+  rotation:
+    x: 0
+    y: 180
+    z: 163.017471
+  scale:
+    x: 0.0127847902
+    y: 0.0462619513
+    z: 0.00160000043
+  color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  customAttributes: 
+lightObjects: ::lcb::::rcb::
+targetObjects: ::lcb::::rcb::
+itemObjects: ::lcb::::rcb::
+workStationObjects: ::lcb::::rcb::
+doorObjects: ::lcb::::rcb::
+}
+

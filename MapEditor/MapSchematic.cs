@@ -37,7 +37,7 @@ namespace MapEditor
 
         public SynapseObject Spawn()
         {
-            var schematic = SchematicHandler.Get.SpawnSchematic(ID, MapPoint.Parse().Position, Rotation);
+            var schematic = SchematicHandler.Get.SpawnSchematic(ID, MapPoint.Parse().Position, (Vector3)Rotation);
             schematic.Scale = Scale;
             schematic.ObjectData.Add(Plugin.ObjectKeyID, ID);
             return schematic;

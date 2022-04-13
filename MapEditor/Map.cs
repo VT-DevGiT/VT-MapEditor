@@ -7,8 +7,15 @@ namespace MapEditor
 {
     public class Map : IConfigSection
     {
+        public static Map None = new Map();
+
         public string Name { get; set; } = Plugin.MapNone;
         public List<MapSchematic> MapSchematic { get; set; } = new List<MapSchematic>();
+
+        public Map() { }
+
+        public Map(string name)
+            => Name = name;
 
         public override int GetHashCode()
         {
