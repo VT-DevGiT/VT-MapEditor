@@ -1,6 +1,7 @@
-﻿using Synapse.Command;
-using System.Linq;
+﻿using Synapse.Api;
+using Synapse.Command;
 using VT_Api.Core.Command;
+using VT_Api.Extension;
 
 namespace MapEditor.Command
 {
@@ -30,9 +31,16 @@ namespace MapEditor.Command
             var mapName = string.Empty;
             for (var i = 0; context.Arguments.Count > i; i++)
             {
-                mapName += context.Arguments.Array[i];
+                mapName += context.Arguments.Array[i + context.Arguments.Offset];
                 if (context.Arguments.Count > i + 1)
                     mapName += " ";
+            }
+
+            if (string.IsNullOrWhiteSpace(mapName))
+            {
+                result.Message = "You need to enter a name (or NONE to exit de mod)";
+                result.State = CommandResultState.Ok;
+                return result;
             }
 
             if (mapName.ToUpper() == Plugin.MapNone)
@@ -43,11 +51,15 @@ namespace MapEditor.Command
                 return result;
             }
 
-            var map = Plugin.Instance.LoadedMaps.FirstOrDefault(m => m.Name == mapName);
-            if (map == null)
-                Plugin.Instance.LoadedMaps.Add(map = new Map(mapName));
+            var map = Plugin.Instance.GetOrAddMap(mapName);
 
             Plugin.Instance.CurentEditedMap = map;
+
+            if (context.Platform == Platform.RemoteAdmin)
+                context.Player.GetOrAddComponent<MapEditUI>().UIRuning = true;
+
+            result.Message = $"You start to edit {mapName}";
+            result.State = CommandResultState.Ok;
 
             return result;
         }

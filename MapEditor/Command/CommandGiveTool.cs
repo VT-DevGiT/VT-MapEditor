@@ -1,4 +1,5 @@
 ﻿using Synapse;
+using Synapse.Api;
 using Synapse.Command;
 using VT_Api.Core.Command;
 using VT_Api.Core.Enum;
@@ -7,8 +8,8 @@ using VT_Api.Extension;
 namespace MapEditor.Command
 {
     [SubCommandInformation(
-        Name = "GiveTool",
-        Aliases = new string[] { "Give" },
+        Name = "GiveTools",
+        Aliases = new string[] { "GiveTool", "Give", "Tool", "Tools" },
         Description = "Give tool for edit",
         Permission = "ME.Edit",
         Platforms = new Platform[] { Platform.RemoteAdmin, Platform.ServerConsole },
@@ -21,7 +22,7 @@ namespace MapEditor.Command
         {
             (int)ItemID.Destroyer,
             (int)ItemID.Mover,
-            (int)ItemID.Positioner,
+            (int)ItemID.Spawner,
             (int)ItemID.Scaler,
             (int)ItemID.Selector
         };
@@ -38,11 +39,12 @@ namespace MapEditor.Command
 
 
             string arg = string.Empty;
+            
             if (context.Arguments.Count == 0)
                 arg = "ME";
             else for (var i = 0; context.Arguments.Count > i; i++)
             {
-                arg += context.Arguments.Array[i];
+                arg += context.Arguments.Array[i + context.Arguments.Offset];
                 if (context.Arguments.Count > i + 1)
                     arg += " ";
             }
@@ -51,10 +53,19 @@ namespace MapEditor.Command
             {
                 foreach (var player in players)
                 {
+                    if (Synapse.Api.Roles.RoleManager.Get.IsIDRegistered(199))
+                        player.RoleID = 199;//role of Staff
+
                     player.Inventory.Clear();
                     foreach (var id in ToolsID)
+                    {
+
                         player.Inventory.AddItem(id);
-                    player.GetOrAddComponent<MapEditHandler>().enabled = true;
+                    }
+
+                    player.GetOrAddComponent<MapEditUI>().UIRuning = true;
+                    player.NoClip = true;
+                    player.GodMode = true;
                 }
             }
             else

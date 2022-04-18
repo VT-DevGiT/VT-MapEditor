@@ -15,52 +15,69 @@ namespace MapEditor.ToolItem
         )]
     internal class Destroyer : AbstractWeapon, ITool
     {
-        public override ushort Ammos => ushort.MaxValue;
+        public override ushort MaxAmmos => ushort.MaxValue;
 
         public override AmmoType AmmoType => AmmoType.Ammo44cal;
 
         public override int DamageAmmont => 0;
 
-        public int Amount { get; set; } = 0;
+        public int Selected { get; set; } = 0;
 
         string ITool.Info => "Destroy the Schematic (shoot the cursor)";
 
         public override bool Realod()
         {   
-            Item.Durabillity = Ammos;
+            Item.Durabillity = MaxAmmos;
             return false;
+        }
+
+        public override void Init()
+        {
+            Item.Durabillity = MaxAmmos;
         }
 
         public override bool Shoot(Vector3 targetPosition, Player target) => false;
 
         public override bool Shoot(Vector3 targetPosition)
         {
-            MapEditHandler handler;
+            MapEditUI handler;
             if (Plugin.Instance.CurentEditedMap == null || Plugin.Instance.CurentEditedMap.Name == Plugin.MapNone)
             {
-                Holder.SendBroadcast(2, "You are not in edit mod", true);
+                Holder.SendBroadcast(2, "<color=red>You are not in edit mod</color>", true);
                 return false;
             }
             else
             {
-                handler = Holder.GetOrAddComponent<MapEditHandler>();
-                handler.enabled = true;
+                handler = Holder.GetOrAddComponent<MapEditUI>();
+                handler.UIRuning = true;
             }
 
-            if (!Physics.Raycast(Holder.CameraReference.transform.position, Holder.CameraReference.transform.forward, out RaycastHit hitInfo, 50f))
-                handler.Info = "nothing found";
+            var hits = Physics.RaycastAll(Holder.CameraReference.transform.position, 
+                                          Holder.CameraReference.transform.forward, 
+                                          50f, 
+                                          Cursor.layer);
 
-            if (!hitInfo.collider.gameObject.TryGetComponent<SynapseObjectScript>(out var script))
-                handler.Info = "nothing found";
-
-            if (script.Object is SynapsePrimitiveObject primitiveObject)
+            if (hits.Length == 0)
             {
-                Cursor.TryInteract(primitiveObject, InteractionType.Destroy, Amount, out var answer, out _);
-                handler.Info = answer;
+                Synapse.Api.Logger.Get.Info("Ray cast fail");
+                handler.Info = "nothing found";
                 return false;
             }
 
-            handler.Info = "nothing found";
+            for (int i = 0; i < hits.Length; i++)
+            {
+                var hit = hits[i];
+                if (hit.collider.TryGetComponent<SynapseObjectScript>(out var script) 
+                    && script.Object is SynapsePrimitiveObject primitiveObject 
+                    && Cursor.IsObjectIsCursor(primitiveObject))
+                {
+                    Cursor.TryInteract(primitiveObject, InteractionType.Destroy, Selected, out var answer, out _);
+                    handler.Info = answer;
+                    return false;
+                }
+            }
+
+            handler.Info = "You need to interact with a cursor";
             return false;
         }
 

@@ -1,6 +1,5 @@
 ﻿using Synapse.Api.CustomObjects;
 using Synapse.Config;
-using System;
 using System.Collections.Generic;
 
 namespace MapEditor

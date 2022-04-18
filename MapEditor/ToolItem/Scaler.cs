@@ -15,7 +15,7 @@ namespace MapEditor.ToolItem
        )]
     internal class Scaler : AbstractWeapon, ITool
     {
-        public override ushort Ammos => ushort.MaxValue;
+        public override ushort MaxAmmos => ushort.MaxValue;
 
         public override AmmoType AmmoType => AmmoType.Ammo44cal;
 
@@ -23,39 +23,48 @@ namespace MapEditor.ToolItem
 
         public override bool Shoot(Vector3 targetPosition, Player target) => false;
 
-        public int Amount { get; set; } = 0;
+        public int Selected { get; set; } = 0;
 
-        string ITool.Info => $"Move the Schematic of the Amount ({Amount})";
+        string ITool.Info => $"Move the Schematic of the Amount ({Selected})";
 
         public override bool Realod()
         {
-            Item.Durabillity = Ammos;
+            Item.Durabillity = MaxAmmos;
             return false;
+        }
+
+        public override void Init()
+        {
+            Item.Durabillity = MaxAmmos;
         }
 
         public override bool Shoot(Vector3 targetPosition)
         {
-            MapEditHandler handler;
+            MapEditUI handler;
             if (Plugin.Instance.CurentEditedMap == null || Plugin.Instance.CurentEditedMap.Name == Plugin.MapNone)
             {
-                Holder.SendBroadcast(2, "You are not in edit mod", true);
+                Holder.SendBroadcast(2, "<color=red>You are not in edit mod</color>", true);
                 return false;
             }
             else
             {
-                handler = Holder.GetOrAddComponent<MapEditHandler>();
-                handler.enabled = true;
+                handler = Holder.GetOrAddComponent<MapEditUI>();
+                handler.UIRuning = true;
             }
 
             if (!Physics.Raycast(Holder.CameraReference.transform.position, Holder.CameraReference.transform.forward, out RaycastHit hitInfo, 50f))
+            {
                 handler.Info = "nothing found";
-
+                return false;
+            }
             if (!hitInfo.collider.gameObject.TryGetComponent<SynapseObjectScript>(out var script))
+            {
                 handler.Info = "nothing found";
-
+                return false;
+            }
             if (script.Object is SynapsePrimitiveObject primitiveObject)
             {
-                Cursor.TryInteract(primitiveObject, InteractionType.Scale, Amount, out var answer, out _);
+                Cursor.TryInteract(primitiveObject, InteractionType.Scale, Selected, out var answer, out _);
                 handler.Info = answer;
                 return false;
             }

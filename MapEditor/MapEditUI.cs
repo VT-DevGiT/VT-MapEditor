@@ -1,68 +1,80 @@
 ﻿using Hints;
 using MapEditor.ToolItem;
+using MEC;
 using Synapse.Api;
-using Synapse.Api.CustomObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using VT_Api.Core.Behaviour;
 using VT_Api.Extension;
 
 namespace MapEditor
 {
-    public class MapEditHandler : RepeatingBehaviour 
+    public class MapEditUI : MonoBehaviour 
     {
         private const byte TextSize = 70;
         Player Player { get; set; }
         public string Info { get; set; }
-        
-        public MapEditHandler()
-        {
-            RefreshTime = 500;
+
+        private CoroutineHandle UI;
+        public bool UIRuning 
+        { 
+            get
+            {
+                return UI.IsRunning;
+            } 
+            set
+            {
+                if (value && !UIRuning)
+                    UI = Timing.RunCoroutine(UICoroutine());
+                else if (!value && UIRuning)
+                    UI.IsRunning = false;
+            }
         }
 
-        protected override void Start()
+        protected void Start()
         {
             Player = gameObject.GetPlayer();
-            base.Start();
         }
 
-        protected override void BehaviourAction()
+        public IEnumerator<float> UICoroutine()
         {
-            if (Plugin.Instance.CurentEditedMap == null || Plugin.Instance.CurentEditedMap.Name == Plugin.MapNone)
+            yield return Timing.WaitForSeconds(0.5f);
+            while (Plugin.Instance.CurentEditedMap != null && Plugin.Instance.CurentEditedMap.Name != Plugin.MapNone && Player != null)
             {
-                enabled = false;
-                return;
-            }
-            Hint hint = new TextHint(
+                try
+                {
+                    Hint hint = new TextHint(
                         BuildRichText(),
                         new HintParameter[] { new StringHintParameter(string.Empty) },
                         null,
                         0.75f
                         );
-            Player.Hub.hints.Show(hint);
+                    Player.Hub.hints.Show(hint);
+                }
+                catch (Exception e)
+                {
+                    Synapse.Api.Logger.Get.Error(e);
+                    break;
+                }
+
+                yield return Timing.WaitForSeconds(0.5f);
+            }
         }
 
         public string BuildRichText()
-        {
-            try
-            {
-                StringBuilder builder = new StringBuilder();
+        { 
+            StringBuilder builder = new StringBuilder();
 
-                builder.Append("<voffset=35em>");
-                AddEnvironmentSection(builder);
-                builder.Append("</voffset>");
+            AddEnvironmentSection(builder);
+            builder.Append("<voffset=14em>");
+            builder.Append(" ");
+            builder.Append("</voffset>");
+            AddEditInformation(builder);
 
-                return builder.ToString();
-            }
-            catch (Exception e)
-            {
-                Synapse.Api.Logger.Get.Error(e);
-            }
-            return "";
+
+            return builder.ToString();
         }
 
         private void AddEditInformation(StringBuilder builder)
@@ -71,9 +83,14 @@ namespace MapEditor
             builder.Append($"<color=#F4D03F>");
             builder.Append($"<align=\"center\">");
             builder.AppendLine($"<b>MapEditing Info</b>");
+            
             builder.AppendLine($"Map Info | ID : {Plugin.Instance.CurentEditedMap.Name}");
-            if (Player.ItemInHand.TryGetScript(out var item) && item is ITool tool)
-                builder.AppendLine($"Tool | name : {item.Info.Name}, {tool.Info} ");
+
+            if (Player.ItemInHand.IsDefined() && Player.ItemInHand.TryGetScript(out var item) && item is ITool tool)
+                builder.AppendLine($"Tool | name : {item.Info.Name}, {tool.Info}");
+            else
+                builder.AppendLine($"No Tool in hand");
+
             builder.Append($"<color=#FF0000>");
             builder.AppendLine(Info);
         }
@@ -111,15 +128,17 @@ namespace MapEditor
             builder.AppendLine($"Target Name: {targetName}");
             
             string playerPosition = isValidPlayer ? Player.Position.ToString() : "None";
+            string playerRotation = isValidPlayer ? Player.Rotation.x.ToString() : "NONE";
             string playerMapPoint = isValidPlayer ? Player.MapPoint.ToString() : "None";
 
             builder.AppendLine($"Player Position: {playerPosition}");
+            builder.AppendLine($"Player Rotation: {playerRotation}");
             builder.AppendLine($"Player MapPoint: {playerMapPoint}");
             
             Room room = Player?.Room;
 
-            string currentRoomName = (isValidPlayer && room != null ? Player.Room.RoomName : "None");
-            string currentRoomType = (isValidPlayer && room != null ? Player.Room.RoomType.ToString() : "None");
+            string currentRoomName = isValidPlayer && room != null ? Player.Room.RoomName : "None";
+            string currentRoomType = isValidPlayer && room != null ? Player.Room.RoomType.ToString() : "None";
 
             builder.AppendLine($"Current Room Name: {currentRoomName}");
             builder.AppendLine($"Current Room Type: {currentRoomType}");

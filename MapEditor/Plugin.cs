@@ -15,7 +15,7 @@ namespace MapEditor
             Author = "VT",
             Description = "allows you to place schematics on the map and load them each round",
             LoadPriority = 0,
-            Name = "MapEditor",
+            Name = "VT-MapEditor",
             SynapseMajor = SynapseVersion.Major,
             SynapseMinor = SynapseVersion.Minor,
             SynapsePatch = SynapseVersion.Patch,
@@ -38,14 +38,16 @@ namespace MapEditor
             {
                 if (curentEditedMap != null && curentEditedMap.Name != MapNone)
                     DespawnEditingMap();
-                
-                SpawnMap(value, true);
+             
+                if (value != null && value.Name != MapNone)
+                    SpawnMap(value, true);
+
                 curentEditedMap = value;
             }
         }
-        public List<Map> LoadedMaps { get; set; }
+        public List<Map> LoadedMaps { get; set; } = new List<Map>();
 
-        public Dictionary<string, Map> Maps { get; private set; } = new Dictionary<string, Map>();
+        private Dictionary<string, Map> Maps { get; } = new Dictionary<string, Map>();
         public List<SynapseObject> SpawnedObjects { get; } = new List<SynapseObject>();
         public List<SynapseObject> EditingObjects { get; } = new List<SynapseObject>();
 
@@ -89,8 +91,17 @@ namespace MapEditor
         }
 
         public Map GetMap(string name)
-            => Plugin.Instance.Maps.ContainsKey(name) ? Plugin.Instance.Maps[name] : null;
-        
+            => Maps.ContainsKey(name) ? Maps[name] : null;
+
+        public Map GetOrAddMap(string name)
+        {
+            if (Maps.ContainsKey(name))
+                return Maps[name];
+
+            var map = new Map(name);
+            Maps.Add(name, map);
+            return map;
+        }
 
         public void DespawnMap(Map map)
         {
@@ -112,10 +123,11 @@ namespace MapEditor
 
         public void DespawnEditingMap()
         {
-            while (EditingObjects.Count != 0)
+            while (EditingObjects.Any())
             {
-                SpawnedObjects[0].Destroy();
-                SpawnedObjects.Remove(SpawnedObjects[0]);
+                var obj = SpawnedObjects[0];
+                SpawnedObjects.Remove(obj);
+                obj.Destroy();
             }
         }
 

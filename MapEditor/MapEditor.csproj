@@ -87,7 +87,7 @@
     <Compile Include="Command\MainCommand.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="EventHandlers.cs" />
-    <Compile Include="MapEditHandler.cs" />
+    <Compile Include="MapEditUI.cs" />
     <Compile Include="InteractionType.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapSchematic.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="ToolItem\Destroyer.cs" />
     <Compile Include="ToolItem\ITool.cs" />
     <Compile Include="ToolItem\Mover.cs" />
-    <Compile Include="ToolItem\Positioner.cs" />
+    <Compile Include="ToolItem\Spawner.cs" />
     <Compile Include="ToolItem\Scaler.cs" />
     <Compile Include="ToolItem\Selector.cs" />
   </ItemGroup>

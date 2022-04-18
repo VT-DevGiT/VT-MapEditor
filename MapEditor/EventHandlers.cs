@@ -1,7 +1,5 @@
 ﻿using MapEditor.ToolItem;
 using Synapse;
-using Synapse.Api;
-using Synapse.Api.CustomObjects;
 using Synapse.Api.Events.SynapseEventArguments;
 using System.Linq;
 using VT_Api.Extension;
@@ -18,34 +16,41 @@ namespace MapEditor
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)
         {
-            if (ev.Player.ItemInHand == null)
+            if (!ev.Player.ItemInHand.IsDefined())
                 return;
+            
             if (ev.KeyCode == Plugin.Instance.Config.KeyDown)
             {
                 if (ev.Player.ItemInHand.TryGetScript(out var script) && script is ITool tool)
-                    tool.Amount--;
+                    tool.Selected--;
             }
-            else if (ev.KeyCode == Plugin.Instance.Config.KeyDown)
+            else if (ev.KeyCode == Plugin.Instance.Config.KeyUp)
             {
                 if (ev.Player.ItemInHand.TryGetScript(out var script) && script is ITool tool)
-                    tool.Amount++;
+                    tool.Selected++;
+            }
+            else if (ev.KeyCode == Plugin.Instance.Config.KeyReset)
+            {
+                if (ev.Player.ItemInHand.TryGetScript(out var script) && script is ITool tool)
+                    tool.Selected = 0;
             }
         }
 
         private void OnWhaiting()
         {
             if (!Plugin.Instance.Config.MapsLoaded.Any() || 
-                (Plugin.Instance.Config.MapsLoaded.Count == 1 && Plugin.Instance.Config.MapsLoaded[1] == Plugin.MapNone))
+                (Plugin.Instance.Config.MapsLoaded.Count == 1 && Plugin.Instance.Config.MapsLoaded[0] == Plugin.MapNone))
                 return;
-
-            foreach (var mapToLoad in Plugin.Instance.Config.MapsLoaded)
+            /*
+            foreach (var mapName in Plugin.Instance.Config.MapsLoaded)
             {
-                if (!Plugin.Instance.Maps.TryGetValue(mapToLoad, out var map))
+                var map = Plugin.Instance.GetMap(mapName);
+                if (map == null)
                 {
-                    Logger.Get.Error($"Map not found ! map name {mapToLoad}");
+                    Logger.Get.Error($"Map not found ! map name {mapName}");
                 }
                 Plugin.Instance.SpawnMap(map);
-            }
+            }*/
         }
     }
 }

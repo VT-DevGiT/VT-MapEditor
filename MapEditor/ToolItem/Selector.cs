@@ -1,11 +1,6 @@
 ﻿using Synapse.Api;
 using Synapse.Api.CustomObjects;
 using Synapse.Api.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Items;
@@ -20,7 +15,7 @@ namespace MapEditor.ToolItem
        )]
     public class Selector : AbstractWeapon, ITool
     {
-        public override ushort Ammos => ushort.MaxValue;
+        public override ushort MaxAmmos => ushort.MaxValue;
 
         public override AmmoType AmmoType => AmmoType.Ammo44cal;
 
@@ -29,23 +24,23 @@ namespace MapEditor.ToolItem
         public override bool Shoot(Vector3 targetPosition, Player target) => false;
 
 
-        public Cursor Slected { get; } = null;
-        public int Amount { get; set; } = 0;
+        public Cursor SlectedObject { get; } = null;
+        public int Selected { get; set; } = 0;
 
         string ITool.Info
         {
             get
             {
-                switch (Amount)
+                switch (Selected)
                 {
-                    case 0 when Slected == null:
+                    case 0 when SlectedObject == null:
                         return $"Fire on a cursor for select the Object";
                     case 0 :
-                        return $"Selected object (ID : {Slected.AttachedObject.ID}, Name :{Slected.AttachedObject.Name})";
-                    case 1 when Slected != null:
-                        return $"Move the slected Object (ID : {Slected.AttachedObject.ID}, Name :{Slected.AttachedObject.Name})";
-                    case 2 when Slected != null:
-                        return $"Copy the seleted Object (ID : {Slected.AttachedObject.ID}, Name :{Slected.AttachedObject.Name})";
+                        return $"Selected object (ID : {SlectedObject.AttachedObject.ID}, Name :{SlectedObject.AttachedObject.Name})";
+                    case 1 when SlectedObject != null:
+                        return $"Move the slected Object (ID : {SlectedObject.AttachedObject.ID}, Name :{SlectedObject.AttachedObject.Name})";
+                    case 2 when SlectedObject != null:
+                        return $"Copy the seleted Object (ID : {SlectedObject.AttachedObject.ID}, Name :{SlectedObject.AttachedObject.Name})";
                     case 1:
                     case 2:
                     default:
@@ -56,38 +51,45 @@ namespace MapEditor.ToolItem
 
         public override bool Realod()
         {
-            Item.Durabillity = Ammos;
+            Item.Durabillity = MaxAmmos;
             return false;
+        }
+
+        public override void Init()
+        {
+            Item.Durabillity = MaxAmmos;
         }
 
         public override bool Shoot(Vector3 targetPosition)
         {
-            MapEditHandler handler;
+            MapEditUI handler;
             if (Plugin.Instance.CurentEditedMap == null || Plugin.Instance.CurentEditedMap.Name == Plugin.MapNone)
             {
-                Holder.SendBroadcast(2, "You are not in edit mod", true);
+                Holder.SendBroadcast(2, "<color=red>You are not in edit mod</color>", true);
                 return false;
             }
             else
             {
-                handler = Holder.GetOrAddComponent<MapEditHandler>();
-                handler.enabled = true;
+                handler = Holder.GetOrAddComponent<MapEditUI>();
+                handler.UIRuning = true;
             }
-
-            if (!Physics.Raycast(Holder.CameraReference.transform.position, Holder.CameraReference.transform.forward, out RaycastHit hitInfo, 50f))
-                handler.Info = "nothing found";
-
-            if (!hitInfo.collider.gameObject.TryGetComponent<SynapseObjectScript>(out var script))
-                handler.Info = "nothing found";
-
-            if (script.Object is SynapsePrimitiveObject primitiveObject)
+            switch (Selected)
             {
-                Cursor.TryInteract(primitiveObject, InteractionType.Selector, Amount, out var answer, out _);
-                handler.Info = answer;
-                return false;
+                case 0:
+                    if (!Physics.Raycast(Holder.CameraReference.transform.position, Holder.CameraReference.transform.forward, out RaycastHit hitInfo, 50f))
+                        handler.Info = "nothing found";
+                    else if (!hitInfo.collider.gameObject.TryGetComponent<SynapseObjectScript>(out var script))
+                        handler.Info = "nothing found";
+                    else if (script.Object is SynapsePrimitiveObject primitiveObject)
+                    {
+                        Cursor.TryInteract(primitiveObject, InteractionType.Selector, Selected, out var answer, out _);
+                        handler.Info = answer;
+                    }
+                    else
+                        handler.Info = "nothing found";
+                    return false;
+                    //TODO
             }
-
-            handler.Info = "nothing found";
             return false;
         }
     }

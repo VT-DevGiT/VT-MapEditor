@@ -8,13 +8,14 @@ namespace MapEditor
     public class Config : IConfigSection
     {
         [Description("The Name of the loaded Map")]
-        public List<string> MapsLoaded = new List<string>()
+        public List<string> MapsLoaded { get; set; } = new List<string>()
         { 
             Plugin.MapNone
         };
 
         [Description("Key for change the \"Ammot\" of the tool")]
-        public KeyCode KeyUp = KeyCode.Keypad1;
-        public KeyCode KeyDown = KeyCode.Keypad2;
+        public KeyCode KeyUp { get; set; } = KeyCode.Keypad8;
+        public KeyCode KeyDown { get; set; } = KeyCode.Keypad2;
+        public KeyCode KeyReset { get; set; } = KeyCode.Keypad5;
     }
 }

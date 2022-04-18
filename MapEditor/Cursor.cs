@@ -10,6 +10,10 @@ namespace MapEditor
 {
     public class Cursor
     {
+        /// <summary>
+        /// layer 3
+        /// </summary>
+        public const int layer = 1 << (int)VT_Api.Core.Enum.LayerID.Hitbox;
         const string KeyCursor = "Cursor";
         const string OtherValue = "Other";
         const string MainValue = "Main";
@@ -33,31 +37,38 @@ namespace MapEditor
                     switch (atribute)
                     {
                         case "Cursor:Center":
-                            @object.ObjectData.Add(KeyCursor, Axis.Center);
+                            if (!@object.ObjectData.ContainsKey(KeyCursor))
+                                @object.ObjectData.Add(KeyCursor, Axis.Center);
                             break;
                         case "Cursor:X+1":
-                            @object.ObjectData.Add(KeyCursor, Axis.Right);
+                            if (!@object.ObjectData.ContainsKey(KeyCursor))
+                                @object.ObjectData.Add(KeyCursor, Axis.Right);
                             break;
                         case "Cursor:Y+1":
-                            @object.ObjectData.Add(KeyCursor, Axis.Up);
+                            if (!@object.ObjectData.ContainsKey(KeyCursor))
+                                @object.ObjectData.Add(KeyCursor, Axis.Up);
                             break;
                         case "Cursor:Z+1":
-                            @object.ObjectData.Add(KeyCursor, Axis.Forward);
+                            if (!@object.ObjectData.ContainsKey(KeyCursor))
+                                @object.ObjectData.Add(KeyCursor, Axis.Forward);
                             break;
                         case "Cursor:X-1":
-                            @object.ObjectData.Add(KeyCursor, Axis.Left);
+                            if (!@object.ObjectData.ContainsKey(KeyCursor))
+                                @object.ObjectData.Add(KeyCursor, Axis.Left);
                             break;
                         case "Cursor:Y-1":
-                            @object.ObjectData.Add(KeyCursor, Axis.Down);
+                            if (!@object.ObjectData.ContainsKey(KeyCursor))
+                                @object.ObjectData.Add(KeyCursor, Axis.Down);
                             break;
                         case "Cursor:Z-1":
-                            @object.ObjectData.Add(KeyCursor, Axis.Backward);
-                            break;
-                        default:
-                            @object.ObjectData.Add(KeyCursor, OtherValue);
+                            if (!@object.ObjectData.ContainsKey(KeyCursor))
+                                @object.ObjectData.Add(KeyCursor, Axis.Backward);
                             break;
                     }
                 }
+                if (!@object.ObjectData.ContainsKey(KeyCursor))
+                    @object.ObjectData.Add(KeyCursor, OtherValue);
+                @object.GameObject.layer = layer;
             }
         }
 

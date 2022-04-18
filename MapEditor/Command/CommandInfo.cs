@@ -12,14 +12,15 @@ namespace MapEditor.Command
         )]
     internal class CommandInfo : ISubCommand
     {
+
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
 
             result.State = CommandResultState.Ok;
-            result.Message = $@"__Info__ 
+            result.Message = $@"Info
 Command :
-For mort info ont the command enter ""MapEditor Help"".
+For more info ont the command enter ""MapEditor Help"".
 
 Tool : 
 The tools are revolvers, to use them you must fire them.
