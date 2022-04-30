@@ -11,6 +11,7 @@
     <AssemblyName>MapEditor</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <LangVersion>9</LangVersion>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -88,7 +89,6 @@
     <Compile Include="Cursor.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="MapEditUI.cs" />
-    <Compile Include="InteractionType.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapSchematic.cs" />
     <Compile Include="Plugin.cs" />
@@ -97,6 +97,7 @@
     <Compile Include="ToolItem\Destroyer.cs" />
     <Compile Include="ToolItem\ITool.cs" />
     <Compile Include="ToolItem\Mover.cs" />
+    <Compile Include="ToolItem\Rotationer.cs" />
     <Compile Include="ToolItem\Spawner.cs" />
     <Compile Include="ToolItem\Scaler.cs" />
     <Compile Include="ToolItem\Selector.cs" />

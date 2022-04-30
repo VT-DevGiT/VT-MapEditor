@@ -13,10 +13,8 @@ namespace MapEditor
         /// <summary>
         /// layer 3
         /// </summary>
-        public const int layer = 1 << (int)VT_Api.Core.Enum.LayerID.Hitbox;
-        const string KeyCursor = "Cursor";
-        const string OtherValue = "Other";
-        const string MainValue = "Main";
+        public const int layer = 9;
+        public const string KeyCursor = "Cursor";
 
         static List<Cursor> Cursors = new List<Cursor>();
 
@@ -25,50 +23,50 @@ namespace MapEditor
 
         public Cursor(SynapseObject @object)
         {
+            Cursors.Add(this);
             AttachedObject = @object;
             MainObject = SchematicHandler.Get.SpawnSchematic(0, @object.Position + Vector3.down * 2, @object.Rotation);
             MainObject.GameObject.transform.parent = @object.GameObject.transform;
-            MainObject.ObjectData.Add(KeyCursor, MainValue);
+            MainObject.ObjectData.Add(KeyCursor, Axis.Main);
 
             foreach(var children in MainObject.PrimitivesChildrens)
             {
                 foreach (var atribute in children.CustomAttributes)
                 {
-                    switch (atribute)
+                    switch (atribute.ToLower())
                     {
-                        case "Cursor:Center":
-                            if (!@object.ObjectData.ContainsKey(KeyCursor))
-                                @object.ObjectData.Add(KeyCursor, Axis.Center);
+                        case "cursor:center":
+                            if (!children.ObjectData.ContainsKey(KeyCursor))
+                                children.ObjectData.Add(KeyCursor, Axis.Center);
                             break;
-                        case "Cursor:X+1":
-                            if (!@object.ObjectData.ContainsKey(KeyCursor))
-                                @object.ObjectData.Add(KeyCursor, Axis.Right);
+                        case "cursor:x+1":
+                            if (!children.ObjectData.ContainsKey(KeyCursor))
+                                children.ObjectData.Add(KeyCursor, Axis.Right);
                             break;
-                        case "Cursor:Y+1":
-                            if (!@object.ObjectData.ContainsKey(KeyCursor))
-                                @object.ObjectData.Add(KeyCursor, Axis.Up);
+                        case "cursor:y+1":
+                            if (!children.ObjectData.ContainsKey(KeyCursor))
+                                children.ObjectData.Add(KeyCursor, Axis.Up);
                             break;
-                        case "Cursor:Z+1":
-                            if (!@object.ObjectData.ContainsKey(KeyCursor))
-                                @object.ObjectData.Add(KeyCursor, Axis.Forward);
+                        case "cursor:z+1":
+                            if (!children.ObjectData.ContainsKey(KeyCursor))
+                                children.ObjectData.Add(KeyCursor, Axis.Forward);
                             break;
-                        case "Cursor:X-1":
-                            if (!@object.ObjectData.ContainsKey(KeyCursor))
-                                @object.ObjectData.Add(KeyCursor, Axis.Left);
+                        case "cursor:x-1":
+                            if (!children.ObjectData.ContainsKey(KeyCursor))
+                                children.ObjectData.Add(KeyCursor, Axis.Left);
                             break;
-                        case "Cursor:Y-1":
-                            if (!@object.ObjectData.ContainsKey(KeyCursor))
-                                @object.ObjectData.Add(KeyCursor, Axis.Down);
+                        case "cursor:y-1":
+                            if (!children.ObjectData.ContainsKey(KeyCursor))
+                                children.ObjectData.Add(KeyCursor, Axis.Down);
                             break;
-                        case "Cursor:Z-1":
-                            if (!@object.ObjectData.ContainsKey(KeyCursor))
-                                @object.ObjectData.Add(KeyCursor, Axis.Backward);
+                        case "cursor:z-1":
+                            if (!children.ObjectData.ContainsKey(KeyCursor))
+                                children.ObjectData.Add(KeyCursor, Axis.Backward);
                             break;
                     }
                 }
-                if (!@object.ObjectData.ContainsKey(KeyCursor))
-                    @object.ObjectData.Add(KeyCursor, OtherValue);
-                @object.GameObject.layer = layer;
+                if (!children.ObjectData.ContainsKey(KeyCursor))
+                    children.ObjectData.Add(KeyCursor, Axis.Other);
             }
         }
 
@@ -163,93 +161,26 @@ namespace MapEditor
 
             AttachedObject.Rotation *= rotationToAdd;
         }
-        
-        public static bool TryInteract(DefaultSynapseObject @object, InteractionType interaction, int amount, out string answer, out Cursor cursor)
+
+        public static bool CanInteract(DefaultSynapseObject @object, out string answer, bool needToBeAxis = false)
         {
             if (!IsObjectIsCursor(@object))
             {
                 answer = "You need to interact with a cursor";
-                cursor = null;
                 return false;
             }
 
-            if (@object.ObjectData[KeyCursor] as string == OtherValue)
+            if (@object.ObjectData[KeyCursor] is Axis axis && axis == Axis.Other && !needToBeAxis)
             {
-                answer = "You can't interact with this";
-                cursor = null;
+                var cursor = GetCursor(@object);
+                answer = $"Cursor info | ID : {cursor.MainObject.ID}, Name {cursor.MainObject.ID}, Postion {cursor.MainObject.ID}, Rotation {cursor.MainObject.Rotation}, Scale {cursor.MainObject.Scale}";
                 return false;
             }
 
-            if (!TryGetCursor(@object, out cursor))
-            {
-                answer = "This cursor is not referenced ! (bug contact the Dev and explain)";
-                return false;
-
-            }
-
-            if (@object.ObjectData[KeyCursor] as string == MainValue && interaction != InteractionType.Selector && interaction != InteractionType.Destroy)
-            {
-                answer = $"Cursor info | ID : {cursor.MainObject.ID}, Name {cursor.MainObject.ID}" +
-                     $"\nPostion {cursor.MainObject.ID}, Rotation {cursor.MainObject.Rotation}, Scale {cursor.MainObject.Scale}";
-                return true;
-            }
-
-            switch (interaction)
-            {
-                case InteractionType.Scale:
-                    {
-                        if (@object.ObjectData[KeyCursor] is Axis axis)
-                        {
-                            cursor.Scale(axis, amount);
-                            answer = "Object Scaled";
-                            return true;
-                        }
-                        else
-                        {
-                            answer = "is not an Axis ! (bug contact the Dev and explain)";
-                            return false;
-                        }
-                    }
-                case InteractionType.Rotation:
-                    {
-                        if (@object.ObjectData[KeyCursor] is Axis axis)
-                        {
-                            cursor.Rotate(axis, amount);
-                            answer = "Object rotationed";
-                            return true;
-                        }
-                        else
-                        {
-                            answer = "is not an Axis ! (bug contact the Dev and explain)";
-                            return false;
-                        }
-                    }
-                case InteractionType.Mover:
-                    {
-                        if (@object.ObjectData[KeyCursor] is Axis axis)
-                        {
-                            cursor.Move(axis, amount);
-                            answer = "Object moved";
-                            return true;
-                        }
-                        else
-                        {
-                            answer = "is not an Axis ! (bug contact the Dev and explain)";
-                            return false;
-                        }
-                    }
-                case InteractionType.Destroy:
-                    cursor.MainObject.Destroy();
-                    answer = "Object Destroyed";
-                    return true;
-                case InteractionType.Selector:
-                    answer = "Object Selected";
-                    return true;                    
-                default:
-                    answer = "Unknow Interaction";
-                    return false;
-            }
+            answer = "Can interact";
+            return true;
         }
+            
         
         public static bool IsObjectIsCursor(ISynapseObject @object)
         {
@@ -264,16 +195,24 @@ namespace MapEditor
                 return false;
             }
 
-            if (@object.ObjectData[KeyCursor] as string == MainValue)
+            if (@object.ObjectData[KeyCursor] is Axis axis && axis == Axis.Main)
             {
                 cursor = Cursors.FirstOrDefault(c => c.MainObject == @object);
                 return cursor != null;
             }
             else
-            {
+            {                
                 cursor = Cursors.FirstOrDefault(c => c.MainObject == @object.Parent); 
                 return cursor != null;
             }
+        }
+
+        public static Cursor GetCursor(DefaultSynapseObject @object)
+        {
+            if (@object.ObjectData[KeyCursor] is Axis axis && axis == Axis.Main)
+                return Cursors.FirstOrDefault(c => c.MainObject == @object);
+            else
+                return Cursors.FirstOrDefault(c => c.MainObject == @object.Parent);
         }
     }
 }

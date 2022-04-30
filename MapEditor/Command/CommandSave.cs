@@ -26,6 +26,9 @@ namespace MapEditor.Command
 
             Plugin.Instance.SaveMapSchematic(Plugin.Instance.CurentEditedMap, Plugin.Instance.CurentEditedMap.Name);
 
+            result.Message = "Map Save !";
+            result.State = CommandResultState.Ok;
+
             return result;
         }
     }

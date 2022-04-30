@@ -1,6 +1,7 @@
 ﻿using Synapse.Api;
 using Synapse.Api.CustomObjects;
 using Synapse.Api.Enum;
+using System.Linq;
 using UnityEngine;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Items;
@@ -55,20 +56,31 @@ namespace MapEditor.ToolItem
                 handler.Info = "nothing found";
                 return false;
             }
-            if (!hitInfo.collider.gameObject.TryGetComponent<SynapseObjectScript>(out var script))
+            else
             {
-                handler.Info = "nothing found";
-                return false;
-            }
-            if (script.Object is SynapsePrimitiveObject primitiveObject)
-            {
-                Cursor.TryInteract(primitiveObject, InteractionType.Mover, Selected, out var answer, out _);
-                handler.Info = answer;
-                return false;
-            }
+                var compnts = hitInfo.collider.GetComponentsInParent(typeof(Component));
 
-            handler.Info = "nothing found";
-            return false;
+                var primitiveObject = compnts.FirstOrDefault(c => c is SynapseObjectScript) as SynapseObjectScript;
+
+                if (primitiveObject == null || primitiveObject.Object is not DefaultSynapseObject defaultSynapseObject)
+                {
+                    handler.Info = "You need to interact with a cursor";
+                    return false;
+                }
+
+                if (!Cursor.CanInteract(defaultSynapseObject, out var answer))
+                {
+                    handler.Info = answer;
+                    return false;
+                }
+
+                var cursor = Cursor.GetCursor(defaultSynapseObject);
+                var axis = (Axis)defaultSynapseObject.ObjectData[Cursor.KeyCursor];
+                cursor.Move(axis, Selected);
+                handler.Info  = "Object moved";
+                return true;
+                
+            }
         }
 
         public override bool Shoot(Vector3 targetPosition, Player target) => false;

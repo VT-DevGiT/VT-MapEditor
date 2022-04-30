@@ -15,6 +15,7 @@ namespace MapEditor
         Left = -1,
         Right = 1,
         Center = 0,
-
+        Main = 4,
+        Other = 5,
     }
 }

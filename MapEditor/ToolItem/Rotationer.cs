@@ -1,5 +1,4 @@
-﻿using AdminToys;
-using Synapse.Api;
+﻿using Synapse.Api;
 using Synapse.Api.CustomObjects;
 using Synapse.Api.Enum;
 using System.Linq;
@@ -11,11 +10,11 @@ using VT_Api.Extension;
 namespace MapEditor.ToolItem
 {
     [VtItemInformation(
-        BasedItemType = ItemType.GunRevolver,
-        ID = (int)ItemID.Destroyer,
-        Name = "Destroyer"
-        )]
-    internal class Destroyer : AbstractWeapon, ITool
+       BasedItemType = ItemType.GunRevolver,
+       ID = (int)ItemID.Rotationer,
+       Name = "Rotationer"
+       )]
+    internal class Rotationer : AbstractWeapon, ITool
     {
         public override ushort MaxAmmos => ushort.MaxValue;
 
@@ -23,12 +22,14 @@ namespace MapEditor.ToolItem
 
         public override int DamageAmmont => 0;
 
+        public override bool Shoot(Vector3 targetPosition, Player target) => false;
+
         public int Selected { get; set; } = 0;
 
-        string ITool.Info => "Destroy the Schematic (shoot the cursor)";
+        string ITool.Info => $"Move the Schematic of the Amount ({Selected})";
 
         public override bool Realod()
-        {   
+        {
             Item.Durabillity = MaxAmmos;
             return false;
         }
@@ -37,8 +38,6 @@ namespace MapEditor.ToolItem
         {
             Item.Durabillity = MaxAmmos;
         }
-
-        public override bool Shoot(Vector3 targetPosition, Player target) => false;
 
         public override bool Shoot(Vector3 targetPosition)
         {
@@ -78,11 +77,13 @@ namespace MapEditor.ToolItem
                 }
 
                 var cursor = Cursor.GetCursor(defaultSynapseObject);
-                cursor.AttachedObject.Destroy();
-                answer = "Object Destroyed";
+                var axis = (Axis)defaultSynapseObject.ObjectData[Cursor.KeyCursor];
+                cursor.Rotate(axis, Selected);
+                answer = "Object rotationed";
                 return true;
             }
-        }
 
+
+        }
     }
 }

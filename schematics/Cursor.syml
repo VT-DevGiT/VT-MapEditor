@@ -23,7 +23,7 @@ primitiveObjects:
     b: 1
     a: 1
   customAttributes:
-  - ' Cursor:Center'
+  - 'Cursor:Center'
 - primitiveType: Cylinder
   position:
     x: 0
@@ -62,7 +62,7 @@ primitiveObjects:
     b: 0
     a: 1
   customAttributes:
-  - ' Cursor:X+1'
+  - 'Cursor:X+1'
 - primitiveType: Cylinder
   position:
     x: 0
@@ -120,7 +120,7 @@ primitiveObjects:
     b: 0
     a: 1
   customAttributes:
-  - ' Cursor:X+1'
+  - 'Cursor:X+1'
 - primitiveType: Cube
   position:
     x: -0.75
@@ -140,7 +140,7 @@ primitiveObjects:
     b: 0
     a: 1
   customAttributes:
-  - ' Cursor:Y+1'
+  - 'Cursor:Y+1'
 - primitiveType: Cube
   position:
     x: 0.75
@@ -160,7 +160,7 @@ primitiveObjects:
     b: 0
     a: 1
   customAttributes:
-  - ' Cursor:Y-1'
+  - 'Cursor:Y-1'
 - primitiveType: Cube
   position:
     x: 0
@@ -180,7 +180,7 @@ primitiveObjects:
     b: 1
     a: 1
   customAttributes:
-  - ' Cursor:Z+1'
+  - 'Cursor:Z+1'
 - primitiveType: Cube
   position:
     x: 0
@@ -200,7 +200,7 @@ primitiveObjects:
     b: 1
     a: 1
   customAttributes:
-  - ' Cursor:Z-1'
+  - 'Cursor:Z-1'
 lightObjects:
 - position:
     x: -0.200000003

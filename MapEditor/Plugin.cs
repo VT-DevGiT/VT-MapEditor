@@ -125,7 +125,7 @@ namespace MapEditor
         {
             while (EditingObjects.Any())
             {
-                var obj = SpawnedObjects[0];
+                var obj = SpawnedObjects.First();
                 SpawnedObjects.Remove(obj);
                 obj.Destroy();
             }
@@ -145,12 +145,15 @@ namespace MapEditor
             if (!LoadedMaps.Contains(map))
                 LoadedMaps.Add(map);
             var newObjects = map.Spawn();
-            if (!editing)
+            if (editing)
                 foreach (var newObject in newObjects)
-                    SpawnedObjects.Add(newObject);
+                {
+                    new Cursor(newObject);
+                    EditingObjects.Add(newObject);
+                }
             else
                 foreach (var newObject in newObjects)
-                    EditingObjects.Add(newObject);
+                    SpawnedObjects.Add(newObject);
         }
 
         public void LoadMapSchematics()

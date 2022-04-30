@@ -1,6 +1,7 @@
 ﻿using Synapse.Api;
 using Synapse.Api.CustomObjects;
 using Synapse.Api.Enum;
+using System.Linq;
 using UnityEngine;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Items;
@@ -24,7 +25,7 @@ namespace MapEditor.ToolItem
         public override bool Shoot(Vector3 targetPosition, Player target) => false;
 
 
-        public Cursor SlectedObject { get; } = null;
+        public Cursor SlectedObject { get; set; } = null;
         public int Selected { get; set; } = 0;
 
         string ITool.Info
@@ -60,6 +61,30 @@ namespace MapEditor.ToolItem
             Item.Durabillity = MaxAmmos;
         }
 
+        public void Select(MapEditUI handler)
+        {
+            if (!Physics.Raycast(Holder.CameraReference.transform.position, Holder.CameraReference.transform.forward, out RaycastHit hitInfo, 50f))
+                handler.Info = "nothing found";
+            else
+            {
+                var compnts = hitInfo.collider.GetComponentsInParent(typeof(Component));
+
+                var primitiveObject = compnts.FirstOrDefault(c => c is SynapseObjectScript) as SynapseObjectScript;
+
+                if (primitiveObject == null || primitiveObject.Object is not DefaultSynapseObject defaultSynapseObject)
+                {
+                    handler.Info = "You need to interact with a cursor";
+                    return;
+                }
+
+                if (!Cursor.TryGetCursor(defaultSynapseObject, out var cursor))
+                    handler.Info = "You need to interact with a cursor";
+                else
+                    SlectedObject = cursor;
+            }
+            return;
+        }
+
         public override bool Shoot(Vector3 targetPosition)
         {
             MapEditUI handler;
@@ -76,18 +101,9 @@ namespace MapEditor.ToolItem
             switch (Selected)
             {
                 case 0:
-                    if (!Physics.Raycast(Holder.CameraReference.transform.position, Holder.CameraReference.transform.forward, out RaycastHit hitInfo, 50f))
-                        handler.Info = "nothing found";
-                    else if (!hitInfo.collider.gameObject.TryGetComponent<SynapseObjectScript>(out var script))
-                        handler.Info = "nothing found";
-                    else if (script.Object is SynapsePrimitiveObject primitiveObject)
-                    {
-                        Cursor.TryInteract(primitiveObject, InteractionType.Selector, Selected, out var answer, out _);
-                        handler.Info = answer;
-                    }
-                    else
-                        handler.Info = "nothing found";
-                    return false;
+                    Select(handler);
+                    break;
+
                     //TODO
             }
             return false;
