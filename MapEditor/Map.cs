@@ -1,4 +1,5 @@
-﻿using Synapse.Api.CustomObjects;
+﻿using Synapse.Api;
+using Synapse.Api.CustomObjects;
 using Synapse.Config;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace MapEditor
         public static Map None = new Map();
 
         public string Name { get; set; } = Plugin.MapNone;
-        public List<MapSchematic> MapSchematic { get; set; } = new List<MapSchematic>();
+        public List<MapSchematic> MapSchematics { get; set; } = new List<MapSchematic>();
 
         public Map() { }
 
@@ -21,16 +22,19 @@ namespace MapEditor
             return Name.GetHashCode();
         }
 
-        internal List<SynapseObject> Spawn()
+        internal List<SynapseObject> Spawn(bool editing = false)
         {
-            var spawnObject = new List<SynapseObject>();
-            foreach (var schematic in MapSchematic)
+            var spawnObjects = new List<SynapseObject>();
+            foreach (var schematic in MapSchematics)
             {
-                var @object = schematic.Spawn();
-                spawnObject.Add(@object);
-                @object.ObjectData.Add(Plugin.ObjectKeyMap, Name);
+                var @object = schematic.Spawn(editing);
+                if (@object == null)
+                    continue;
+                spawnObjects.AddRange(@object);
             }
-            return spawnObject;
+            foreach (var spawnObject in spawnObjects)
+                spawnObject.ObjectData.Add(Plugin.ObjectKeyMap, Name);
+            return spawnObjects;
         }
     }
 }

@@ -56,7 +56,7 @@ namespace MapEditor.ToolItem
 
             if (!Physics.Raycast(Holder.CameraReference.transform.position, Holder.CameraReference.transform.forward, out RaycastHit hitInfo, 50f))
             {
-                handler.Info = "nothing found";
+                handler.Info = "<color=#FF0000>nothing found</color>";
                 return false;
             }
             else
@@ -67,7 +67,7 @@ namespace MapEditor.ToolItem
 
                 if (primitiveObject == null || primitiveObject.Object is not DefaultSynapseObject defaultSynapseObject)
                 {
-                    handler.Info = "You need to interact with a cursor";
+                    handler.Info = "<color=#FF0000>You need to interact with a cursor</color>";
                     return false;
                 }
 
@@ -78,6 +78,10 @@ namespace MapEditor.ToolItem
                 }
 
                 var cursor = Cursor.GetCursor(defaultSynapseObject);
+                var cursorsToRemove = Plugin.Instance.PlayerSlectedObject.Where(p => p.Value == cursor);
+                foreach (var cursorToRemove in cursorsToRemove)
+                    Plugin.Instance.PlayerSlectedObject[cursorToRemove.Key] = null;
+                Plugin.Instance.EditingObjects.Remove(cursor.AttachedObject);
                 cursor.AttachedObject.Destroy();
                 answer = "Object Destroyed";
                 return true;

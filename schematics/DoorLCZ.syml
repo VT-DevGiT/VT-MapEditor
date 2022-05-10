@@ -1,0 +1,30 @@
+﻿[DoorLCZ]
+{
+iD: 7
+name: DoorLCZ
+customAttributes: ::lcb::::rcb::
+primitiveObjects: ::lcb::::rcb::
+lightObjects: ::lcb::::rcb::
+targetObjects: ::lcb::::rcb::
+itemObjects: ::lcb::::rcb::
+workStationObjects: ::lcb::::rcb::
+doorObjects:
+- doorType: LCZ
+  position:
+    x: 10
+    y: 0
+    z: 0
+  rotation:
+    x: 0
+    y: 0
+    z: 0
+  scale:
+    x: 1
+    y: 1
+    z: 1
+  open: false
+  locked: false
+  updateEveryFrame: true
+  customAttributes: ::lcb::::rcb::
+}
+

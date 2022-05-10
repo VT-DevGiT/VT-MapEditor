@@ -11,17 +11,23 @@ namespace MapEditor
     public class Cursor
     {
         /// <summary>
-        /// layer 3
+        /// layer 9
         /// </summary>
         public const int layer = 9;
         public const string KeyCursor = "Cursor";
 
-        static List<Cursor> Cursors = new List<Cursor>();
+        static List<Cursor> Cursors { get; } = new List<Cursor>();
+        static Dictionary<Map, int> HigherIdPerMap { get; } = new Dictionary<Map, int>();
 
         public SynapseObject AttachedObject { get; set; }
         public SynapseObject MainObject { get; set; }
 
-        public Cursor(SynapseObject @object)
+        public Map Map { get; set; }
+
+
+        public int ID { get; private set; }
+
+        public Cursor(SynapseObject @object, Map map)
         {
             Cursors.Add(this);
             AttachedObject = @object;
@@ -65,22 +71,44 @@ namespace MapEditor
                             break;
                     }
                 }
+
                 if (!children.ObjectData.ContainsKey(KeyCursor))
                     children.ObjectData.Add(KeyCursor, Axis.Other);
+
+                if (HigherIdPerMap.ContainsKey(map))
+                {
+                    ID = HigherIdPerMap[map] = HigherIdPerMap[map]++;
+                }
+                else
+                {
+                    HigherIdPerMap.Add(map, 0);
+                    ID = 0;
+                }
+
+                Map = map;
             }
         }
 
-        public void Scale(Axis axis, int ammount)
+        public void Scale(Axis axis, float ammount)
         {
+            ammount = ammount * (float)0.01;
             Vector3 vectorToAdd;
             switch (axis)
             {
                 case Axis.Up:
-                    vectorToAdd = Vector3.up * ammount;
-                    break;
+                    {
+                        var sizeVector = Vector3.down * ammount;
+                        vectorToAdd = Vector3.up * ammount;
+                        MainObject.Position += Vector3.up * ammount;
+                        break;
+                    }
                 case Axis.Down:
-                    vectorToAdd = Vector3.down * ammount;
-                    break;
+                    {
+                        var sizeVector = Vector3.down * ammount;
+                        vectorToAdd = sizeVector;
+                        MainObject.Position += sizeVector;
+                        break;
+                    }
                 case Axis.Left:
                     vectorToAdd = Vector3.left * ammount;
                     break;
@@ -97,12 +125,26 @@ namespace MapEditor
                     return;
             }
 
+            MainObject.GameObject.transform.parent = null;
             AttachedObject.Scale += vectorToAdd;
-            MainObject.Scale -= vectorToAdd;
+            MainObject.GameObject.transform.parent = AttachedObject.GameObject.transform;
         }
 
-        public void Move(Axis axis, int ammount)
+        public void Scale(Vector3 vector, bool add = true)
         {
+            MainObject.GameObject.transform.parent = null;
+            if (vector.y != 0)
+                MainObject.Position += Vector3.up * vector.y;
+            if (add)
+                AttachedObject.Scale += vector;
+            else
+                AttachedObject.Scale = vector;
+            MainObject.GameObject.transform.parent = AttachedObject.GameObject.transform;
+        }
+
+        public void Move(Axis axis, float ammount)
+        {
+            ammount = ammount * (float)0.01;
             Vector3 vectorToAdd;
             switch (axis)
             {
@@ -112,16 +154,16 @@ namespace MapEditor
                 case Axis.Down:
                     vectorToAdd = Vector3.down * ammount;
                     break;
-                case Axis.Left:
+                case Axis.Forward:
                     vectorToAdd = Vector3.left * ammount;
                     break;
-                case Axis.Right:
+                case Axis.Backward:
                     vectorToAdd = Vector3.right * ammount;
                     break;
-                case Axis.Forward:
+                case Axis.Left:
                     vectorToAdd = Vector3.forward * ammount;
                     break;
-                case Axis.Backward:
+                case Axis.Right:
                     vectorToAdd = Vector3.back * ammount;
                     break;
                 default:
@@ -131,28 +173,37 @@ namespace MapEditor
             AttachedObject.Position += vectorToAdd;
         }
 
-        public void Rotate(Axis axis, int ammount)
+        public void Move(Vector3 vector, bool add = true)
         {
+            if (add)
+                AttachedObject.Position += vector;
+            else
+                AttachedObject.Position = vector;
+        }
+
+        public void Rotate(Axis axis, float ammount)
+        {
+            ammount = ammount * (float)0.1;
             Quaternion rotationToAdd; 
 
             switch(axis)
             {
-                case Axis.Up:
+                case Axis.Left:
                     rotationToAdd = Quaternion.Euler(Vector3.up * ammount);
                     break;
-                case Axis.Down:
+                case Axis.Right:
                     rotationToAdd = Quaternion.Euler(Vector3.down * ammount);
                     break;
-                case Axis.Left:
+                case Axis.Forward:
                     rotationToAdd = Quaternion.Euler(Vector3.left * ammount);
                     break;
-                case Axis.Right:
+                case Axis.Backward:
                     rotationToAdd = Quaternion.Euler(Vector3.right * ammount);
                     break;
-                case Axis.Forward:
+                case Axis.Up:
                     rotationToAdd = Quaternion.Euler(Vector3.forward * ammount);
                     break;
-                case Axis.Backward:
+                case Axis.Down:
                     rotationToAdd = Quaternion.Euler(Vector3.back * ammount);
                     break;
                 default:
@@ -160,6 +211,18 @@ namespace MapEditor
             }
 
             AttachedObject.Rotation *= rotationToAdd;
+        }
+
+        public void Rotate(Vector3 vector, bool add = true)
+        {
+            if (add)
+            {
+                var addRotation = Quaternion.Euler(vector);
+                AttachedObject.Rotation = new Quaternion(AttachedObject.Rotation.x + addRotation.x, AttachedObject.Rotation.y + addRotation.y,
+                                                         AttachedObject.Rotation.z + addRotation.z, AttachedObject.Rotation.w + addRotation.w);
+            }
+            else
+                AttachedObject.Rotation = Quaternion.Euler(vector);
         }
 
         public static bool CanInteract(DefaultSynapseObject @object, out string answer, bool needToBeAxis = false)
@@ -207,12 +270,38 @@ namespace MapEditor
             }
         }
 
+        public static bool TryGetCursor(SynapseObject @object, out Cursor cursor)
+        {
+            cursor = Cursors.FirstOrDefault(c => c.AttachedObject == @object);
+            return cursor != null;
+        }
+
+        public static bool TryGetCursor(int id, out Cursor cursor)
+        {
+            cursor = Cursors.FirstOrDefault(c => c.ID == id);
+            return cursor != null;
+        }
+
         public static Cursor GetCursor(DefaultSynapseObject @object)
         {
             if (@object.ObjectData[KeyCursor] is Axis axis && axis == Axis.Main)
                 return Cursors.FirstOrDefault(c => c.MainObject == @object);
             else
                 return Cursors.FirstOrDefault(c => c.MainObject == @object.Parent);
+        }
+
+        public static Cursor GetCursor(SynapseObject @object)
+        {
+            return Cursors.FirstOrDefault(c => c.MainObject == @object);
+        }
+        public static Cursor GetCursor(int id)
+        {
+            return Cursors.FirstOrDefault(c => c.ID == id);
+        }
+
+        public static void ResetID()
+        {
+            HigherIdPerMap.Clear();
         }
     }
 }

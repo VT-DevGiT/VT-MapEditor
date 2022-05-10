@@ -13,7 +13,7 @@ namespace MapEditor
             Plugin.MapNone
         };
 
-        [Description("Key for change the \"Ammot\" of the tool")]
+        [Description("Key for change the \"Amount\" of the tool")]
         public KeyCode KeyUp { get; set; } = KeyCode.Keypad8;
         public KeyCode KeyDown { get; set; } = KeyCode.Keypad2;
         public KeyCode KeyReset { get; set; } = KeyCode.Keypad5;

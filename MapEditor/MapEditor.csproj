@@ -78,12 +78,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Axis.cs" />
+    <Compile Include="Command\CommandMapList.cs" />
+    <Compile Include="Command\CommandRoom.cs" />
     <Compile Include="Command\CommandInfo.cs" />
+    <Compile Include="Command\CommandMove.cs" />
+    <Compile Include="Command\CommandRotate.cs" />
     <Compile Include="Command\CommandSave.cs" />
     <Compile Include="Command\CommandGiveTool.cs" />
     <Compile Include="Command\CommandEdit.cs" />
     <Compile Include="Command\CommandLoadedMap.cs" />
     <Compile Include="Command\CommandLoadMap.cs" />
+    <Compile Include="Command\CommandSelect.cs" />
+    <Compile Include="Command\CommandDestroy.cs" />
+    <Compile Include="Command\CommandSize.cs" />
+    <Compile Include="Command\CommandTp.cs" />
     <Compile Include="Command\CommandUnloadMap.cs" />
     <Compile Include="Command\MainCommand.cs" />
     <Compile Include="Cursor.cs" />

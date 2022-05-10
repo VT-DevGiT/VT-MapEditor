@@ -15,8 +15,6 @@ namespace MapEditor.ToolItem
         )]
     internal class Spawner : AbstractWeapon, ITool
     {
-        public Vector3 Scale { get; set; } = Vector3.one;
-
         public override ushort MaxAmmos => ushort.MaxValue;
 
         public override AmmoType AmmoType => AmmoType.Ammo44cal;
@@ -52,6 +50,7 @@ namespace MapEditor.ToolItem
             Item.Durabillity = MaxAmmos;
         }
 
+        public override bool Shoot(Vector3 targetPosition, Player target) => false;
         public override bool Shoot(Vector3 targetPosition)
         {
             if (Plugin.Instance.CurentEditedMap == null)
@@ -68,19 +67,16 @@ namespace MapEditor.ToolItem
 
             Holder.GetOrAddComponent<MapEditUI>().UIRuning = true;
 
-            var rotation = new Vector3(Holder.Rotation.x, 0, 0);
+            var rotation = new Vector3(0, Holder.Rotation.y, 0);
             var schematic = SchematicHandler.Get.SpawnSchematic(CurentSchematic, Holder.Position, rotation);
-            schematic.Scale = Scale;
-
-            new Cursor(schematic);
-
-            schematic.ObjectData.Add(Plugin.ObjectKeyID, CurentSchematic.ID);
+            new Cursor(schematic, Plugin.Instance.CurentEditedMap);
+            
             schematic.ObjectData.Add(Plugin.ObjectKeyMap, Plugin.Instance.CurentEditedMap.Name);
+            schematic.ObjectData.Add(Plugin.ObjectKeyRoom, Holder.Room);
+
             Plugin.Instance.EditingObjects.Add(schematic);
+
             return false;
         }
-
-        public override bool Shoot(Vector3 targetPosition, Player target) => false;
-
     }
 }

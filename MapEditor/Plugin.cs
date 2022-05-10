@@ -1,4 +1,5 @@
-﻿using Synapse;
+﻿using MapGeneration;
+using Synapse;
 using Synapse.Api;
 using Synapse.Api.CustomObjects;
 using Synapse.Api.Plugin;
@@ -7,7 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using UnityEngine;
 using VT_Api.Core.Plugin;
+using Logger = Synapse.Api.Logger;
 
 namespace MapEditor
 {
@@ -24,9 +28,9 @@ namespace MapEditor
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {
         public const string ObjectKeyMap = "Map";
-        public const string ObjectKeyID = "ID";
-
+        public const string ObjectKeyRoom = "Room";
         public const string MapNone = "NONE";
+        public const string Fixed = "Fix";
 
         public override bool AutoRegister => true;
 
@@ -36,6 +40,8 @@ namespace MapEditor
             get => curentEditedMap;
             set
             {
+                Cursor.ResetID();
+
                 if (curentEditedMap != null && curentEditedMap.Name != MapNone)
                     DespawnEditingMap();
              
@@ -47,11 +53,11 @@ namespace MapEditor
         }
         public List<Map> LoadedMaps { get; set; } = new List<Map>();
 
-        private Dictionary<string, Map> Maps { get; } = new Dictionary<string, Map>();
+        public Dictionary<string, Map> Maps { get; } = new Dictionary<string, Map>();
         public List<SynapseObject> SpawnedObjects { get; } = new List<SynapseObject>();
         public List<SynapseObject> EditingObjects { get; } = new List<SynapseObject>();
 
-        private string _mapSchematicDirectory;
+        private string _mapSchematicDirectory = Path.Combine(Server.Get.Files.SchematicDirectory, "mapSchematics");
         public string MapSchematicDirectory
         {
             get
@@ -66,6 +72,8 @@ namespace MapEditor
                 _mapSchematicDirectory = value;
             }
         }
+
+        public Dictionary<Player, Cursor> PlayerSlectedObject { get; } = new Dictionary<Player, Cursor>();
 
         public override void Load()
         {
@@ -91,10 +99,11 @@ namespace MapEditor
         }
 
         public Map GetMap(string name)
-            => Maps.ContainsKey(name) ? Maps[name] : null;
+            => Maps.ContainsKey(name.ToLower()) ? Maps[name.ToLower()] : null;
 
         public Map GetOrAddMap(string name)
         {
+            name = name.ToLower();
             if (Maps.ContainsKey(name))
                 return Maps[name];
 
@@ -114,8 +123,9 @@ namespace MapEditor
                     continue;
                 if ((SpawnedObjects[i].ObjectData[ObjectKeyMap] as string) == map.Name)
                 {
-                    SpawnedObjects[i].Destroy();
-                    SpawnedObjects.Remove(SpawnedObjects[i]);
+                    var @object = SpawnedObjects[i];
+                    SpawnedObjects.Remove(@object);
+                    @object.Destroy();
                     i--;
                 }
             }
@@ -125,9 +135,9 @@ namespace MapEditor
         {
             while (EditingObjects.Any())
             {
-                var obj = SpawnedObjects.First();
-                SpawnedObjects.Remove(obj);
-                obj.Destroy();
+                var @object = EditingObjects.First();
+                EditingObjects.Remove(@object);
+                @object.Destroy();
             }
         }
 
@@ -144,16 +154,14 @@ namespace MapEditor
         {
             if (!LoadedMaps.Contains(map))
                 LoadedMaps.Add(map);
-            var newObjects = map.Spawn();
-            if (editing)
-                foreach (var newObject in newObjects)
-                {
-                    new Cursor(newObject);
-                    EditingObjects.Add(newObject);
-                }
-            else
-                foreach (var newObject in newObjects)
-                    SpawnedObjects.Add(newObject);
+            var newObjects = map.Spawn(editing);
+            if (editing) foreach (var newObject in newObjects)
+            {
+                new Cursor(newObject, map);
+                EditingObjects.Add(newObject);
+            }
+            else foreach (var newObject in newObjects)
+                SpawnedObjects.Add(newObject);
         }
 
         public void LoadMapSchematics()
@@ -168,17 +176,17 @@ namespace MapEditor
                     var section = syml.Sections.First().Value;
                     var map = section.LoadAs<Map>();
                     
-                    foreach (var shematic in map.MapSchematic)
+                    foreach (var schematic in map.MapSchematics)
                     {
-                        if (!SchematicHandler.Get.IsIDRegistered(shematic.ID))
+                        if (!SchematicHandler.Get.IsIDRegistered(schematic.ID))
                         {
-                            Logger.Get.Error($"Shematic ID not regitred, MapShematic ignored !\n\tID : {shematic.ID}\n\tFile : {file}");
+                            Logger.Get.Error($"Schematic ID not regitred, MapSchematic ignored !\n\tID : {schematic.ID}\n\tFile : {file}");
                             continue;
                         }
                     }
                     if (Maps.ContainsKey(map.Name))
                     {
-                        Logger.Get.Error($"MapShematic already registered, MapShematic ignored !\n\tFile : {file}");
+                        Logger.Get.Error($"MapSchematic already registered, MapSchematic ignored !\n\tFile : {file}");
                         continue;
                     }
 
@@ -193,7 +201,56 @@ namespace MapEditor
 
         public void SaveMapSchematic(Map map, string fileName)
         {
-            var syml = new SYML(Path.Combine(Server.Get.Files.SchematicDirectory, fileName + ".syml"));
+            map.MapSchematics.Clear();
+
+            foreach (var editingObject in EditingObjects)
+            {
+                var room = editingObject.ObjectData[ObjectKeyRoom];
+                SerializedMapPoint position;
+                Vector3 rotation;
+
+                switch (true)
+                {
+                    case true when room is string name:
+                        {
+                            name = Regex.Replace(name, @" ?\(.*?\)", string.Empty);
+                            name = Regex.Replace(name, " ", string.Empty);
+                            name = MapSchematic.Foreach + name;
+                            var refRoom = Synapse.Api.Map.Get.Rooms.FirstOrDefault(r => r.RoomName == name);
+                            if (refRoom == null)
+                            {
+                                Logger.Get.Error($"No {name} found !");
+                                continue;
+                            }
+                            var vector = refRoom.GameObject.transform.InverseTransformPoint(editingObject.Position);
+                            position = new SerializedMapPoint(name, vector.x, vector.y, vector.z);
+                            rotation = editingObject.Rotation.eulerAngles - refRoom.Rotation.eulerAngles;
+                        }
+                        break;
+                    case true when room is Fixed:
+                        {
+                            var outside = SynapseController.Server.Map.GetRoom(RoomName.Outside);
+                            position = new MapPoint(outside, outside.GameObject.transform.InverseTransformPoint(editingObject.Position));
+                            rotation = editingObject.Rotation.eulerAngles;
+                        }
+                        break;
+                    case true when room is Room synapseRoom:
+                        {
+                            position = new MapPoint(synapseRoom, editingObject.Position);
+                            rotation = editingObject.Rotation.eulerAngles;
+                        }
+                        break;
+                    default:
+                        Logger.Get.Error($"Unknow Room !");
+                        continue;
+                        
+                }
+
+                var schematic = new MapSchematic(editingObject.ID, position, rotation, editingObject.Scale);
+                map.MapSchematics.Add(schematic);
+            }
+
+            var syml = new SYML(Path.Combine(MapSchematicDirectory, fileName + ".syml"));
             var section = new ConfigSection { Section = map.Name };
             section.Import(map);
             syml.Sections.Add(map.Name, section);

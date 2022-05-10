@@ -41,7 +41,7 @@ namespace MapEditor
         public IEnumerator<float> UICoroutine()
         {
             yield return Timing.WaitForSeconds(0.5f);
-            while (Plugin.Instance.CurentEditedMap != null && Plugin.Instance.CurentEditedMap.Name != Plugin.MapNone && Player != null)
+            while (Plugin.Instance.CurentEditedMap != null && Plugin.Instance.CurentEditedMap.Name != Plugin.MapNone && Player != null && Round.Get.RoundIsActive)
             {
                 try
                 {
@@ -91,7 +91,6 @@ namespace MapEditor
             else
                 builder.AppendLine($"No Tool in hand");
 
-            builder.Append($"<color=#FF0000>");
             builder.AppendLine(Info);
         }
 

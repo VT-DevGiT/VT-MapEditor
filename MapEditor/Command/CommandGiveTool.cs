@@ -1,5 +1,4 @@
 ﻿using Synapse;
-using Synapse.Api;
 using Synapse.Command;
 using VT_Api.Core.Command;
 using VT_Api.Core.Enum;
@@ -14,17 +13,19 @@ namespace MapEditor.Command
         Permission = "ME.Edit",
         Platforms = new Platform[] { Platform.RemoteAdmin, Platform.ServerConsole },
         MainCommandName = "MapEditor",
-        Usage = "specified the name of the Map for unload only this map"
+        Usage = "You can specified the players",
+        Arguments = new string[]  {"[players]" }
         )]
     internal class CommandGiveTool : ISubCommand
     {
         public int[] ToolsID =
-        {
+        {            
+            (int)ItemID.Spawner,
             (int)ItemID.Destroyer,
             (int)ItemID.Mover,
-            (int)ItemID.Spawner,
+            (int)ItemID.Rotationer,
             (int)ItemID.Scaler,
-            (int)ItemID.Selector
+            (int)ItemID.Selector,
         };
 
         public CommandResult Execute(CommandContext context)
@@ -67,6 +68,8 @@ namespace MapEditor.Command
                     player.NoClip = true;
                     player.GodMode = true;
                 }
+                result.State = CommandResultState.Ok;
+                result.Message = "Tool Gived";
             }
             else
             {

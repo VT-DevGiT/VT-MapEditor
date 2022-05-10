@@ -38,19 +38,23 @@ namespace MapEditor
 
         private void OnWhaiting()
         {
+            Cursor.ResetID();
             if (!Plugin.Instance.Config.MapsLoaded.Any() || 
                 (Plugin.Instance.Config.MapsLoaded.Count == 1 && Plugin.Instance.Config.MapsLoaded[0] == Plugin.MapNone))
                 return;
-            /*
+
+            Plugin.Instance.DespawnMaps();
+
             foreach (var mapName in Plugin.Instance.Config.MapsLoaded)
             {
                 var map = Plugin.Instance.GetMap(mapName);
                 if (map == null)
                 {
-                    Logger.Get.Error($"Map not found ! map name {mapName}");
+                    Synapse.Api.Logger.Get.Error($"Map not found ! map name {mapName}");
+                    continue;
                 }
                 Plugin.Instance.SpawnMap(map);
-            }*/
+            }
         }
     }
 }

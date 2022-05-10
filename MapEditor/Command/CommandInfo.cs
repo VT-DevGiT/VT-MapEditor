@@ -21,6 +21,7 @@ namespace MapEditor.Command
             result.Message = $@"Info
 Command :
 For more info ont the command enter ""MapEditor Help"".
+Warning : for som command you need to ave  selected an object ! 
 
 Tool : 
 The tools are revolvers, to use them you must fire them.
@@ -31,11 +32,9 @@ To change the Amount or the slected ID of schematic use your key {Plugin.Instanc
 the tools can be used without permission!
 A lambda player can edit the map !
 
-
 For mort info contact Warkis#9984 on Discord. 
 :)
 ";
-
             return result;
         }
     }
