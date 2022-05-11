@@ -2,6 +2,8 @@
 using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using System.Linq;
+using VT_Api.Core.Enum;
+using VT_Api.Core.Events.EventArguments;
 using VT_Api.Extension;
 
 namespace MapEditor
@@ -12,6 +14,13 @@ namespace MapEditor
         {
             Server.Get.Events.Round.WaitingForPlayersEvent += OnWhaiting;
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
+            VtController.Get.Events.Item.CheckLimitItemEvent += OnCheckLimit;
+        }
+
+        private void OnCheckLimit(CheckLimitItemEventArgs ev)
+        {
+            if (Plugin.ToolsID.Contains(ev.ExedentingItem.ID))
+                ev.Allow = true;
         }
 
         private void OnKeyPress(PlayerKeyPressEventArgs ev)

@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using VT_Api.Core.Enum;
 using VT_Api.Core.Plugin;
 using Logger = Synapse.Api.Logger;
 
@@ -27,10 +28,22 @@ namespace MapEditor
             )]
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {
+
+        #region Properties & Variable
         public const string ObjectKeyMap = "Map";
         public const string ObjectKeyRoom = "Room";
         public const string MapNone = "NONE";
         public const string Fixed = "Fix";
+
+        public static int[] ToolsID =
+        {
+            (int)ItemID.Spawner,
+            (int)ItemID.Destroyer,
+            (int)ItemID.Mover,
+            (int)ItemID.Rotationer,
+            (int)ItemID.Scaler,
+            (int)ItemID.Selector,
+        };
 
         public override bool AutoRegister => true;
 
@@ -74,7 +87,9 @@ namespace MapEditor
         }
 
         public Dictionary<Player, Cursor> PlayerSlectedObject { get; } = new Dictionary<Player, Cursor>();
+        #endregion
 
+        #region Plugin
         public override void Load()
         {
             base.Load();
@@ -97,7 +112,9 @@ namespace MapEditor
                     SpawnMap(map.Value);
             }
         }
+        #endregion
 
+        #region Methods
         public Map GetMap(string name)
             => Maps.ContainsKey(name.ToLower()) ? Maps[name.ToLower()] : null;
 
@@ -143,9 +160,13 @@ namespace MapEditor
 
         public void DespawnMaps()
         {
-            foreach (var synapseObject in SpawnedObjects)
-                synapseObject.Destroy();
-                
+            while (SpawnedObjects.Any())
+            {
+                var obj = SpawnedObjects[0];
+                if (obj?.GameObject != null)
+                    obj.Destroy();
+                SpawnedObjects.Remove(obj);
+            }
             SpawnedObjects.Clear();
             LoadedMaps.Clear();
         }
@@ -184,13 +205,13 @@ namespace MapEditor
                             continue;
                         }
                     }
-                    if (Maps.ContainsKey(map.Name))
+                    if (Maps.ContainsKey(map.Name.ToLower()))
                     {
                         Logger.Get.Error($"MapSchematic already registered, MapSchematic ignored !\n\tFile : {file}");
                         continue;
                     }
 
-                    Maps.Add(map.Name, map);
+                    Maps.Add(map.Name.ToLower(), map);
                 }
                 catch (Exception ex)
                 {
@@ -256,5 +277,6 @@ namespace MapEditor
             syml.Sections.Add(map.Name, section);
             syml.Store();
         }
+        #endregion
     }
 }

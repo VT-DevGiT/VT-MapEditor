@@ -80,7 +80,7 @@ namespace MapEditor
             var schematics = new List<SynapseObject>();
             foreach (var room in rooms)
             {
-                var position = room.GameObject.transform.TransformPoint(MapPoint.Parse().Position);
+                var position = room.GameObject.transform.TransformPoint(new Vector3(MapPoint.X, MapPoint.Y, MapPoint.Z));
                 var rotation = Rotation + room.Rotation.eulerAngles;
                 var schematic = SchematicHandler.Get.SpawnSchematic(ID, position, rotation);
                 schematics.Add(schematic);
@@ -96,7 +96,7 @@ namespace MapEditor
                 Synapse.Api.Logger.Get.Error($"Error to spawn a Schematic, this room {name} is not referenced");
                 return null;
             }
-            var position = room.GameObject.transform.TransformPoint(MapPoint.Parse().Position);
+            var position = room.GameObject.transform.TransformPoint(new Vector3(MapPoint.X, MapPoint.Y, MapPoint.Z));
             var rotation = Rotation + room.Rotation.eulerAngles;
             var schematic = SchematicHandler.Get.SpawnSchematic(ID, position, rotation);
             schematic.ObjectData[Plugin.ObjectKeyRoom] = MapPoint.Room;

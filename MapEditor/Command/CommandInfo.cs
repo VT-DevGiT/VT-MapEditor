@@ -33,7 +33,12 @@ the tools can be used without permission!
 A lambda player can edit the map !
 
 For mort info contact Warkis#9984 on Discord. 
+note: if there are spelling mistakes it's normal, I'm a dixlexic, if necessary you can report the mistake to me so that I can correct it.
 :)
+
+Credit :
+Warkis,
+AlmightyLks for the UI
 ";
             return result;
         }

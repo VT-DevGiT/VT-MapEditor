@@ -18,16 +18,6 @@ namespace MapEditor.Command
         )]
     internal class CommandGiveTool : ISubCommand
     {
-        public int[] ToolsID =
-        {            
-            (int)ItemID.Spawner,
-            (int)ItemID.Destroyer,
-            (int)ItemID.Mover,
-            (int)ItemID.Rotationer,
-            (int)ItemID.Scaler,
-            (int)ItemID.Selector,
-        };
-
         public CommandResult Execute(CommandContext context)
         {
             var result = new CommandResult();
@@ -37,9 +27,8 @@ namespace MapEditor.Command
                 result.State = CommandResultState.Error;
                 result.Message = "You need to specifid the player";
             }
-
-
-            string arg = string.Empty;
+            
+            var arg = string.Empty;
             
             if (context.Arguments.Count == 0)
                 arg = "ME";
@@ -55,14 +44,11 @@ namespace MapEditor.Command
                 foreach (var player in players)
                 {
                     if (Synapse.Api.Roles.RoleManager.Get.IsIDRegistered(199))
-                        player.RoleID = 199;//role of Staff
+                        player.RoleID = (int)RoleID.Staff;
 
                     player.Inventory.Clear();
-                    foreach (var id in ToolsID)
-                    {
-
+                    foreach (var id in Plugin.ToolsID)
                         player.Inventory.AddItem(id);
-                    }
 
                     player.GetOrAddComponent<MapEditUI>().UIRuning = true;
                     player.NoClip = true;
@@ -76,8 +62,6 @@ namespace MapEditor.Command
                 result.State = CommandResultState.Error;
                 result.Message = "Players not founds !";
             }
-            
-
             return result;
         }
     }
