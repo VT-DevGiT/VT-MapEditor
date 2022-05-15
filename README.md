@@ -1,18 +1,30 @@
 
 This plugins are plugin for SCP sl servers under the [synapse loader](https://github.com/SynapseSL/Synapse) plugin.
+If there are any spelling mistakes, report them to me on discord, because I am a tenxicon and I am too lazy to correct myself.
 
 ## Installation
 1. [Install Synapse](https://github.com/SynapseSL/Synapse/wiki#hosting-guides).
 2. Place the dll VT-API in the synapse reference folder (can be found [here](https://github.com/VT-DevGiT/VT-Api)).
 3. Place the dll file in your plugin directory.
-4. Restart/Start your server.
+4. Place the Schematics in the schematics directory.
+5. Restart/Start your server.
+
+
+##Schematics
+The Exemple map schematics is give, it add some door and some sign to indicate the gate A and B
+
+![Exemple Map](/assets/MapExemple.png)
 
 ## Credits
 ### Devloppeurs :
 * Warkis ([warquys@GitHub](https://github.com/warquys))
-* Antonio ([Antoniofo@GitHub](https://github.com/Antoniofo))
 
 ### Thanks to :
 * [Synapse Team](https://github.com/SynapseSL) for [Syanpse sl](https://github.com/SynapseSL/Synapse)
 * [VT-Dev](https://github.com/VT-DevGiT) for the team.
+* Rhetsin#1913 for the alphabet used in the sign.
+
+### inspiration
+This plugin was inspired by [Map Rditor Reborn](https://github.com/Michal78900/MapEditorReborn), I never used the plugin it but I understood the principle with name.
+
 
