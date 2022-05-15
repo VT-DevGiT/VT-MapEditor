@@ -47,4 +47,4 @@ jobs:
         prerelease: true
         title: "Development Build"
         files: |
-          ./MapEditor/bin/PreRelease/MapEditor.dll
+          ./MapEditor/bin/Release/MapEditor.dll
