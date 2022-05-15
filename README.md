@@ -10,7 +10,7 @@ If there are any spelling mistakes, report them to me on discord, because I am a
 5. Restart/Start your server.
 
 
-##Schematics
+## Schematics
 The Exemple map schematics is give, it add some door and some sign to indicate the gate A and B
 
 ![Exemple Map](https://github.com/VT-DevGiT/VT-MapEditor/blob/main/asset/MapExemple.png)
