@@ -18,7 +18,7 @@ namespace MapEditor.Command
         {
             var result = new CommandResult();
 
-            if (!Plugin.Instance.PlayerSlectedObject.ContainsKey(context.Player) || Plugin.Instance.PlayerSlectedObject[context.Player] == null)
+            if (!Plugin.Instance.PlayerSlectedObject.ContainsKey(context.Player) || Plugin.Instance.PlayerSlectedObject[context.Player]?.MainObject == null)
             {
                 result.Message = "You need to select an object";
                 result.State = CommandResultState.Error;

@@ -1,4 +1,5 @@
 ﻿using MapEditor.ToolItem;
+using MEC;
 using Synapse;
 using Synapse.Api.Events.SynapseEventArguments;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace MapEditor
     {
         public EventHandlers()
         {
-            Server.Get.Events.Round.WaitingForPlayersEvent += OnWhaiting;
+            Server.Get.Events.Round.RoundStartEvent += OnStart;
             Server.Get.Events.Player.PlayerKeyPressEvent += OnKeyPress;
             VtController.Get.Events.Item.CheckLimitItemEvent += OnCheckLimit;
         }
@@ -45,15 +46,15 @@ namespace MapEditor
             }
         }
 
-        private void OnWhaiting()
+        private void OnStart()
         {
-            Cursor.ResetID();
+            Cursor.ResetID();// todo : fix faild spawn
             if (!Plugin.Instance.Config.MapsLoaded.Any() || 
                 (Plugin.Instance.Config.MapsLoaded.Count == 1 && Plugin.Instance.Config.MapsLoaded[0] == Plugin.MapNone))
                 return;
 
             Plugin.Instance.DespawnMaps();
-
+           
             foreach (var mapName in Plugin.Instance.Config.MapsLoaded)
             {
                 var map = Plugin.Instance.GetMap(mapName);
@@ -64,6 +65,10 @@ namespace MapEditor
                 }
                 Plugin.Instance.SpawnMap(map);
             }
+            
+            
         }
+
+
     }
 }

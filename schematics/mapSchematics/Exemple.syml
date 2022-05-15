@@ -1,0 +1,118 @@
+﻿[Exemple]
+{
+name: Exemple
+mapSchematics:
+- iD: 7
+  mapPoint:
+    room: Outside
+    x: 14.3822699
+    y: -4.83026123
+    z: -23.2735806
+  scale:
+    x: 1
+    y: 1
+    z: 1.4799999
+  rotation:
+    x: 0
+    y: 180.211487
+    z: 0
+- iD: 7
+  mapPoint:
+    room: Outside
+    x: 14.3903799
+    y: -4.86962891
+    z: -43.5220299
+  scale:
+    x: 1
+    y: 1
+    z: 1.11999989
+  rotation:
+    x: 0
+    y: 180.501511
+    z: 0
+- iD: 110
+  mapPoint:
+    room: Outside
+    x: 14.4111404
+    y: -0.765197754
+    z: -44.8985481
+  scale:
+    x: 1
+    y: 1
+    z: 1
+  rotation:
+    x: 0
+    y: 2.26321816
+    z: 0
+- iD: 110
+  mapPoint:
+    room: Outside
+    x: -14.5505199
+    y: 3.90283203
+    z: 0.643368483
+  scale:
+    x: 1
+    y: 1
+    z: 1
+  rotation:
+    x: 0
+    y: 270
+    z: 0
+- iD: 111
+  mapPoint:
+    room: Outside
+    x: 87.5656967
+    y: -3.53955078
+    z: -44.8000793
+  scale:
+    x: 1
+    y: 1
+    z: 1
+  rotation:
+    x: 0
+    y: 0
+    z: 0
+- iD: 111
+  mapPoint:
+    room: Outside
+    x: 49.9972687
+    y: -3.55114746
+    z: -58.6563301
+  scale:
+    x: 6
+    y: 6
+    z: 6
+  rotation:
+    x: 0
+    y: 90
+    z: 0
+- iD: 110
+  mapPoint:
+    room: Outside
+    x: 67.782402
+    y: -3.65270996
+    z: -58.7315674
+  scale:
+    x: 6
+    y: 6
+    z: 6
+  rotation:
+    x: 0
+    y: 270
+    z: 0
+- iD: 5
+  mapPoint:
+    room: foreach_LCZ_Airlock
+    x: -0.00354719209
+    y: 0.0310697015
+    z: -5.16859484
+  scale:
+    x: 1
+    y: 1.07999992
+    z: 1
+  rotation:
+    x: 0
+    y: 179.037323
+    z: 0
+}
+

@@ -232,27 +232,27 @@ namespace MapEditor
 
                 switch (true)
                 {
+                    case true when room is Fixed:
+                        {
+                            var outside = SynapseController.Server.Map.GetRoom(RoomName.Outside);
+                            position = new MapPoint(outside, editingObject.Position);
+                            rotation = editingObject.Rotation.eulerAngles;
+                        }
+                        break;
                     case true when room is string name:
                         {
-                            name = Regex.Replace(name, @" ?\(.*?\)", string.Empty);
-                            name = Regex.Replace(name, " ", string.Empty);
-                            name = MapSchematic.Foreach + name;
                             var refRoom = Synapse.Api.Map.Get.Rooms.FirstOrDefault(r => r.RoomName == name);
                             if (refRoom == null)
                             {
                                 Logger.Get.Error($"No {name} found !");
                                 continue;
                             }
+                            name = Regex.Replace(name, @" ?\(.*?\)", string.Empty);
+                            name = Regex.Replace(name, " ", string.Empty);
+                            name = MapSchematic.Foreach + name;
                             var vector = refRoom.GameObject.transform.InverseTransformPoint(editingObject.Position);
                             position = new SerializedMapPoint(name, vector.x, vector.y, vector.z);
                             rotation = editingObject.Rotation.eulerAngles - refRoom.Rotation.eulerAngles;
-                        }
-                        break;
-                    case true when room is Fixed:
-                        {
-                            var outside = SynapseController.Server.Map.GetRoom(RoomName.Outside);
-                            position = new MapPoint(outside, outside.GameObject.transform.InverseTransformPoint(editingObject.Position));
-                            rotation = editingObject.Rotation.eulerAngles;
                         }
                         break;
                     case true when room is Room synapseRoom:
@@ -264,7 +264,6 @@ namespace MapEditor
                     default:
                         Logger.Get.Error($"Unknow Room !");
                         continue;
-                        
                 }
 
                 var schematic = new MapSchematic(editingObject.ID, position, rotation, editingObject.Scale);

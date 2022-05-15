@@ -62,7 +62,7 @@ primitiveObjects:
     b: 0
     a: 1
   customAttributes:
-  - Cursor:X+1
+  - Cursor:X-1
 - primitiveType: Cylinder
   position:
     x: 0

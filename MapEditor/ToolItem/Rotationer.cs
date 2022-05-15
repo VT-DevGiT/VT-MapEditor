@@ -24,7 +24,7 @@ namespace MapEditor.ToolItem
 
         public int Selected { get; set; } = 0;
 
-        string ITool.Info => $"Move the Schematic of the Amount ({Selected})";
+        string ITool.Info => $"Rotate the Schematic of the Amount ({Selected})";
 
         public override bool Realod()
         {

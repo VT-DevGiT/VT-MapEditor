@@ -78,9 +78,11 @@ namespace MapEditor.ToolItem
                 }
 
                 var cursor = Cursor.GetCursor(defaultSynapseObject);
-                var cursorsToRemove = Plugin.Instance.PlayerSlectedObject.Where(p => p.Value == cursor);
+                var cursorsToRemove = Plugin.Instance.PlayerSlectedObject.Where(p => p.Value == cursor).Select(p => p.Key).ToList();
+                
                 foreach (var cursorToRemove in cursorsToRemove)
-                    Plugin.Instance.PlayerSlectedObject[cursorToRemove.Key] = null;
+                    Plugin.Instance.PlayerSlectedObject[cursorToRemove] = null;
+
                 Plugin.Instance.EditingObjects.Remove(cursor.AttachedObject);
                 cursor.AttachedObject.Destroy();
                 answer = "Object Destroyed";

@@ -17,7 +17,7 @@ namespace MapEditor
         public const string KeyCursor = "Cursor";
 
         static List<Cursor> Cursors { get; } = new List<Cursor>();
-        static Dictionary<Map, int> HigherIdPerMap { get; } = new Dictionary<Map, int>();
+        static int HigherId { get; set; } = 0;
 
         public SynapseObject AttachedObject { get; set; }
         public SynapseObject MainObject { get; set; }
@@ -31,7 +31,7 @@ namespace MapEditor
         {
             Cursors.Add(this);
             AttachedObject = @object;
-            MainObject = SchematicHandler.Get.SpawnSchematic(0, @object.Position + Vector3.down * 2, @object.Rotation);
+            MainObject = SchematicHandler.Get.SpawnSchematic(0, @object.Position + Vector3.down * 2, new Quaternion(0,0,0,0));
             MainObject.GameObject.transform.parent = @object.GameObject.transform;
             MainObject.ObjectData.Add(KeyCursor, Axis.Main);
 
@@ -71,22 +71,16 @@ namespace MapEditor
                             break;
                     }
                 }
-
                 if (!children.ObjectData.ContainsKey(KeyCursor))
                     children.ObjectData.Add(KeyCursor, Axis.Other);
-
-                if (HigherIdPerMap.ContainsKey(map))
-                {
-                    ID = HigherIdPerMap[map] = HigherIdPerMap[map]++;
-                }
-                else
-                {
-                    HigherIdPerMap.Add(map, 0);
-                    ID = 0;
-                }
-
-                Map = map;
             }
+            if (@object.Scale.y != 1)
+                MainObject.Position += Vector3.down * @object.Scale.y / 4;
+
+            HigherId++;
+            ID = HigherId;
+
+            Map = map;
         }
 
         public void Scale(Axis axis, float ammount)
@@ -98,15 +92,15 @@ namespace MapEditor
                 case Axis.Up:
                     {
                         var sizeVector = Vector3.down * ammount;
-                        vectorToAdd = Vector3.up * ammount;
-                        MainObject.Position += Vector3.up * ammount;
+                        vectorToAdd = sizeVector;
+                        MainObject.Position += sizeVector / 4;
                         break;
                     }
                 case Axis.Down:
                     {
-                        var sizeVector = Vector3.down * ammount;
+                        var sizeVector = Vector3.up * ammount;
                         vectorToAdd = sizeVector;
-                        MainObject.Position += sizeVector;
+                        MainObject.Position += sizeVector / 4;
                         break;
                     }
                 case Axis.Left:
@@ -134,7 +128,7 @@ namespace MapEditor
         {
             MainObject.GameObject.transform.parent = null;
             if (vector.y != 0)
-                MainObject.Position += Vector3.up * vector.y;
+                MainObject.Position += Vector3.down * vector.y / 4;
             if (add)
                 AttachedObject.Scale += vector;
             else
@@ -155,16 +149,16 @@ namespace MapEditor
                     vectorToAdd = Vector3.down * ammount;
                     break;
                 case Axis.Forward:
-                    vectorToAdd = Vector3.left * ammount;
-                    break;
-                case Axis.Backward:
-                    vectorToAdd = Vector3.right * ammount;
-                    break;
-                case Axis.Left:
                     vectorToAdd = Vector3.forward * ammount;
                     break;
-                case Axis.Right:
+                case Axis.Backward:
                     vectorToAdd = Vector3.back * ammount;
+                    break;
+                case Axis.Left:
+                    vectorToAdd = Vector3.left * ammount;
+                    break;
+                case Axis.Right:
+                    vectorToAdd = Vector3.right * ammount;
                     break;
                 default:
                     return;
@@ -301,7 +295,7 @@ namespace MapEditor
 
         public static void ResetID()
         {
-            HigherIdPerMap.Clear();
+            HigherId = 0;
         }
     }
 }

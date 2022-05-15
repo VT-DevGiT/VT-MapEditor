@@ -27,9 +27,10 @@ namespace MapEditor.Command
             }
 
             var cursor = Plugin.Instance.PlayerSlectedObject[context.Player];
-            var cursorsToRemove = Plugin.Instance.PlayerSlectedObject.Where(p => p.Value == cursor);
+            var cursorsToRemove = Plugin.Instance.PlayerSlectedObject.Where(p => p.Value == cursor).Select(p => p.Key).ToList();
+
             foreach (var cursorToRemove in cursorsToRemove)
-                Plugin.Instance.PlayerSlectedObject[cursorToRemove.Key] = null;
+                Plugin.Instance.PlayerSlectedObject[cursorToRemove] = null;
 
             Plugin.Instance.EditingObjects.Remove(cursor.AttachedObject);
             cursor.AttachedObject.Destroy();
