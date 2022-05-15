@@ -24,7 +24,7 @@ The Exemple map schematics is give, it add some door and some sign to indicate t
 * [VT-Dev](https://github.com/VT-DevGiT) for the team.
 * Rhetsin#1913 for the alphabet used in the sign.
 
-### inspiration
+### Inspiration
 This plugin was inspired by [Map Rditor Reborn](https://github.com/Michal78900/MapEditorReborn), I never used the plugin it but I understood the principle with name.
 
 
