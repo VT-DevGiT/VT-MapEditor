@@ -107,7 +107,7 @@ namespace MapEditor.ToolItem
                         Plugin.Instance.PlayerSlectedObject.Add(Holder, cursor);
                     else
                         Plugin.Instance.PlayerSlectedObject[Holder] = cursor;
-
+                    handler.Info = "Object Selected";
                 }
             }
             return;

@@ -99,7 +99,7 @@ namespace MapEditor
             var position = room.GameObject.transform.TransformPoint(new Vector3(MapPoint.X, MapPoint.Y, MapPoint.Z));
             var rotation = Rotation + room.Rotation.eulerAngles;
             var schematic = SchematicHandler.Get.SpawnSchematic(ID, position, rotation);
-            schematic.ObjectData[Plugin.ObjectKeyRoom] = MapPoint.Room;
+            schematic.ObjectData[Plugin.ObjectKeyRoom] = room.RoomName;
             return new List<SynapseObject>() { schematic };
         }
 

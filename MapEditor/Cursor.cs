@@ -128,7 +128,7 @@ namespace MapEditor
         {
             MainObject.GameObject.transform.parent = null;
             if (vector.y != 0)
-                MainObject.Position += Vector3.down * vector.y / 4;
+                MainObject.Position += AttachedObject.Scale / vector.y;
             if (add)
                 AttachedObject.Scale += vector;
             else
