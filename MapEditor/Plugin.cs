@@ -24,7 +24,7 @@ namespace MapEditor
             SynapseMajor = SynapseVersion.Major,
             SynapseMinor = SynapseVersion.Minor,
             SynapsePatch = SynapseVersion.Patch,
-            Version = "v1.0.0"
+            Version = "v1.0.1"
             )]
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {
@@ -95,22 +95,13 @@ namespace MapEditor
             base.Load();
             MapSchematicDirectory = Path.Combine(Server.Get.Files.SchematicDirectory, "mapSchematics");
             LoadMapSchematics();
-            foreach (var map in Maps)
-            {
-                if (Config.MapsLoaded.Contains(map.Value.Name))
-                    SpawnMap(map.Value);
-            }
         }
 
         public override void ReloadConfigs()
         {
             base.ReloadConfigs();
+            Maps.Clear();
             LoadMapSchematics();
-            foreach (var map in Maps)
-            {
-                if (Config.MapsLoaded.Contains(map.Value.Name))
-                    SpawnMap(map.Value);
-            }
         }
         #endregion
 
@@ -187,6 +178,8 @@ namespace MapEditor
 
         public void LoadMapSchematics()
         {
+            var alredyRegisterd = string.Empty;
+            var idNotRegistred = string.Empty;
             foreach (var file in Directory.GetFiles(MapSchematicDirectory, "*.syml"))
             {
                 try
@@ -197,17 +190,20 @@ namespace MapEditor
                     var section = syml.Sections.First().Value;
                     var map = section.LoadAs<Map>();
                     
+                    bool continueOut = false;
                     foreach (var schematic in map.MapSchematics)
                     {
                         if (!SchematicHandler.Get.IsIDRegistered(schematic.ID))
                         {
-                            Logger.Get.Error($"Schematic ID not regitred, MapSchematic ignored !\n\tID : {schematic.ID}\n\tFile : {file}");
-                            continue;
+                            alredyRegisterd += $"\n\tID : {schematic.ID}\n\tFile : {file}";
+                            continueOut = true;
+                            break;
                         }
                     }
+                    if (continueOut) continue;
                     if (Maps.ContainsKey(map.Name.ToLower()))
                     {
-                        Logger.Get.Error($"MapSchematic already registered, MapSchematic ignored !\n\tFile : {file}");
+                        idNotRegistred += $"\n\tFile : {file}";
                         continue;
                     }
 
@@ -218,6 +214,10 @@ namespace MapEditor
                     Logger.Get.Error($"Loading Schematic failed - path: {file}\n{ex}");
                 }
             }
+            if (!string.IsNullOrEmpty(alredyRegisterd))
+                Logger.Get.Error($"Schematic ID not regitred, MapSchematic ignored !{alredyRegisterd}");
+            if (!string.IsNullOrEmpty(idNotRegistred))
+                Logger.Get.Error($"MapSchematic already registered, MapSchematic ignored !{idNotRegistred}");
         }
 
         public void SaveMapSchematic(Map map, string fileName)

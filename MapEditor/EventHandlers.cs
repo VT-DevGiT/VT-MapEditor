@@ -48,7 +48,7 @@ namespace MapEditor
 
         private void OnStart()
         {
-            Cursor.ResetID();// todo : fix faild spawn
+            Cursor.ResetID();
             if (!Plugin.Instance.Config.MapsLoaded.Any() || 
                 (Plugin.Instance.Config.MapsLoaded.Count == 1 && Plugin.Instance.Config.MapsLoaded[0] == Plugin.MapNone))
                 return;
