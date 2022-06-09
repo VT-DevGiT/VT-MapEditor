@@ -9,11 +9,12 @@ If there are any spelling mistakes, report them to me on discord, because I am a
 4. Place the Schematics in the schematics directory.
 5. Restart/Start your server.
 
+For user you need to biend the keypad using the key biender of syanpse.
 
-##Schematics
+## Schematics
 The Exemple map schematics is give, it add some door and some sign to indicate the gate A and B
 
-![Exemple Map](/assets/MapExemple.png)
+![Exemple Map](https://github.com/VT-DevGiT/VT-MapEditor/blob/main/asset/MapExemple.png)
 
 ## Credits
 ### Devloppeurs :
@@ -24,7 +25,7 @@ The Exemple map schematics is give, it add some door and some sign to indicate t
 * [VT-Dev](https://github.com/VT-DevGiT) for the team.
 * Rhetsin#1913 for the alphabet used in the sign.
 
-### inspiration
+### Inspiration
 This plugin was inspired by [Map Rditor Reborn](https://github.com/Michal78900/MapEditorReborn), I never used the plugin it but I understood the principle with name.
 
 
