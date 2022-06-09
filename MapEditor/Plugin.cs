@@ -24,7 +24,7 @@ namespace MapEditor
             SynapseMajor = SynapseVersion.Major,
             SynapseMinor = SynapseVersion.Minor,
             SynapsePatch = SynapseVersion.Patch,
-            Version = "v1.0.1"
+            Version = "v1.1.0"
             )]
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {

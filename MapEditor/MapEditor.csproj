@@ -109,6 +109,7 @@
     <Compile Include="ToolItem\Spawner.cs" />
     <Compile Include="ToolItem\Scaler.cs" />
     <Compile Include="ToolItem\Selector.cs" />
+    <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

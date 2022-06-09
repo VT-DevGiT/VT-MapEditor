@@ -100,6 +100,7 @@ namespace MapEditor
             var rotation = Rotation + room.Rotation.eulerAngles;
             var schematic = SchematicHandler.Get.SpawnSchematic(ID, position, rotation);
             schematic.ObjectData[Plugin.ObjectKeyRoom] = room.RoomName;
+            Synapse.Api.Logger.Get.Info(schematic.ObjectData[Plugin.ObjectKeyRoom]);
             return new List<SynapseObject>() { schematic };
         }
 

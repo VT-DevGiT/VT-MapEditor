@@ -17,10 +17,8 @@ namespace MapEditor
         public Map(string name)
             => Name = name;
 
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode();
-        }
+        public override int GetHashCode() => Name.GetHashCode();
+        
 
         internal List<SynapseObject> Spawn(bool editing = false)
         {

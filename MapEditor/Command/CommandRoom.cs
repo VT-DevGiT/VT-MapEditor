@@ -2,6 +2,7 @@
 using Synapse.Command;
 using System;
 using System.Linq;
+using UnityEngine;
 using VT_Api.Core.Command;
 
 namespace MapEditor.Command
@@ -37,7 +38,8 @@ namespace MapEditor.Command
                 return result;
             }
 
-            var data = Plugin.Instance.PlayerSlectedObject[context.Player].AttachedObject.ObjectData;
+            var @object = Plugin.Instance.PlayerSlectedObject[context.Player].AttachedObject;
+            var data = @object.ObjectData;
 
             if (context.Arguments.FirstElement().ToLower() == "none")
             {
@@ -95,14 +97,17 @@ namespace MapEditor.Command
                     return result;
                 }
 
-                if (!Enum.TryParse<RoomName>(arg, out _))
+                if (!Enum.TryParse<RoomName>(arg, out var roomType))
                 {
                     result.Message = "invalide room type, do list for get all type";
                     result.State = CommandResultState.Error;
                     return result;
                 }
 
-                data[Plugin.ObjectKeyRoom] = MapSchematic.Foreach + context.Arguments.Segment(1);
+                data[Plugin.ObjectKeyRoom] = Synapse.Api.Map.Get.Rooms
+                    .Where(r => r.RoomType == roomType)
+                    .OrderBy(x => Vector3.Distance(x.Position, @object.Position))
+                    .FirstOrDefault().ToString();
                 result.Message = "Room set";
                 result.State = CommandResultState.Ok;
                 return result;
