@@ -12,7 +12,7 @@ If there are any spelling mistakes, report them to me on discord, because I am a
 ## Use
 
 For user you need to biend the keypad using the key biender of syanpse.
-For more info use `me info`
+For more info use `me info`.
 
 ## Schematics
 The Exemple map schematics is give, it add some door and some sign to indicate the gate A and B
