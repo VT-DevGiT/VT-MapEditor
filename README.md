@@ -14,8 +14,7 @@ If there are any spelling mistakes, report them to me on discord, because I am a
 For user you need to biend the keypad using the key biender of syanpse.
 
 ### Command :
-The main command for all command is "MapEditor" you can also do "me".
-####The two important commands are :
+The main command for all command is "MapEditor" you can also do "me". The two important commands are :
 - "MapEditor Edit (map name)" to edit the map or create a map. 
 - "MapEditor Tool" to get tool.
 For more info ont the command enter "MapEditor Help" in game.
