@@ -14,8 +14,7 @@ If there are any spelling mistakes, report them to me on discord, because I am a
 For user you need to biend the keypad using the key biender of syanpse.
 
 ### Command :
-The main command for all command is "MapEditor" you can also do "me".
-####The two important commands are :
+The main command for all command is "MapEditor" you can also do "me". The two important commands are :
 - "MapEditor Edit (map name)" to edit the map or create a map. 
 - "MapEditor Tool" to get tool.
 For more info ont the command enter "MapEditor Help" in game.
@@ -28,7 +27,7 @@ for all tools (except the spawner), you have to pull the cursor.
 If you fire the cursor in the center you will get info on the object unless you use the destroyer.
 If you fire the colored facets to interact in one direction, example : fire whith the mover on the green face pointing up for up the schematic.
 You must be in edit mode to use themn, use "MapEditor Edit" you must have permission "ME.Edit" to enter this command.
-To change the chosen schematic or increase the displacement Vector use your key {Plugin.Instance.Config.KeyUp} to Up and key {Plugin.Instance.Config.KeyDown} to Down
+To change the chosen schematic or increase the displacement Vector use your key Keypad2 (by default) to Up and key Keypad8 (by default) to Down
 ### Note : 
 - the tools can be used without permission!
 - if you don't understand, don't panic! The plugin is easy to handle. If you really don't understand go see the creator (Warkis#9984).
