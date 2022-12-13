@@ -80,13 +80,12 @@ namespace MapEditor
             var schematics = new List<SynapseObject>();
             foreach (var room in rooms)
             {
-                var position = room.GameObject.transform.TransformPoint(new Vector3(MapPoint.X, MapPoint.Y, MapPoint.Z));
-                var rotation = Rotation + room.Rotation.eulerAngles;
-                var schematic = SchematicHandler.Get.SpawnSchematic(ID, position, rotation);
+                var schematic = SpawnShematic(room);
                 schematics.Add(schematic);
             }
             return schematics;
         }
+
         private List<SynapseObject> SpawnForeachEdit()
         {
             var name = MapPoint.Room.Replace(Foreach, string.Empty);
@@ -96,9 +95,7 @@ namespace MapEditor
                 Synapse.Api.Logger.Get.Error($"Error to spawn a Schematic, this room {name} is not referenced");
                 return null;
             }
-            var position = room.GameObject.transform.TransformPoint(new Vector3(MapPoint.X, MapPoint.Y, MapPoint.Z));
-            var rotation = Rotation + room.Rotation.eulerAngles;
-            var schematic = SchematicHandler.Get.SpawnSchematic(ID, position, rotation);
+            var schematic = SpawnShematic(room);
             schematic.ObjectData[Plugin.ObjectKeyRoom] = room.RoomName;
             Synapse.Api.Logger.Get.Info(schematic.ObjectData[Plugin.ObjectKeyRoom]);
             return new List<SynapseObject>() { schematic };
@@ -106,12 +103,13 @@ namespace MapEditor
 
         private List<SynapseObject> SpawnForRoom()
         {
-            if (Synapse.Api.Map.Get.Rooms.Find(r => r.RoomName == MapPoint.Room) == null)
+            Room room = Synapse.Api.Map.Get.Rooms.FirstOrDefault(r => r.RoomName == MapPoint.Room);
+            if (room == null)
                 return null;
-            var schematic = SchematicHandler.Get.SpawnSchematic(ID, MapPoint.Parse().Position, (Vector3)Rotation);
-            schematic.Scale = Scale;
+            var schematic = SpawnShematic(room);
             return new List<SynapseObject>() { schematic };
         }
+
         private List<SynapseObject> SpawnForRoomEdit()
         {
             var room = Synapse.Api.Map.Get.Rooms.Find(r => r.RoomName == MapPoint.Room);
@@ -121,13 +119,21 @@ namespace MapEditor
                 Server.Get.Players.ForEach(p => p.SendBroadcast(5, "<color=red>Object cant be spawn ! use an other seed and dont save or the object be destroy !</color>", true));
                 return null;
             }
-            var schematic = SchematicHandler.Get.SpawnSchematic(ID, MapPoint.Parse().Position, (Vector3)Rotation);
-            schematic.Scale = Scale;
+            var schematic = SpawnShematic(room);
             if (room.RoomType == RoomName.Outside)
                 schematic.ObjectData[Plugin.ObjectKeyRoom] = Plugin.Fixed;
             else
                 schematic.ObjectData[Plugin.ObjectKeyRoom] = room;
             return new List<SynapseObject>() { schematic };
+        }
+
+        private SynapseObject SpawnShematic(Room room)
+        {
+            var position = room.GameObject.transform.TransformPoint(new Vector3(MapPoint.X, MapPoint.Y, MapPoint.Z));
+            var rotation = Rotation + room.Rotation.eulerAngles;
+            var schematic = SchematicHandler.Get.SpawnSchematic(ID, position, rotation);
+            schematic.Scale = Scale;
+            return schematic;
         }
     }
 }

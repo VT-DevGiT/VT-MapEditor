@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using UnityEngine;
 using VT_Api.Core.Enum;
 using VT_Api.Core.Plugin;
@@ -24,7 +25,7 @@ namespace MapEditor
             SynapseMajor = SynapseVersion.Major,
             SynapseMinor = SynapseVersion.Minor,
             SynapsePatch = SynapseVersion.Patch,
-            Version = "v1.1.0"
+            Version = "v1.1.1"
             )]
     public class Plugin : VtAbstractPlugin<Plugin, EventHandlers, Config>
     {
@@ -47,7 +48,7 @@ namespace MapEditor
 
         public override bool AutoRegister => true;
 
-        private Map curentEditedMap;
+        private Map curentEditedMap = Map.None;
         public Map CurentEditedMap 
         {
             get => curentEditedMap;
@@ -55,16 +56,16 @@ namespace MapEditor
             {
                 Cursor.ResetID();
 
-                if (curentEditedMap != null && curentEditedMap.Name != MapNone)
+                if (curentEditedMap.Name != MapNone)
                     DespawnEditingMap();
              
                 if (value != null && value.Name != MapNone)
                     SpawnMap(value, true);
-
-                curentEditedMap = value;
+                
+                curentEditedMap = value ?? Map.None;
             }
         }
-        public List<Map> LoadedMaps { get; set; } = new List<Map>();
+        public List<Map> LoadedMaps { get; } = new List<Map>();
 
         public Dictionary<string, Map> Maps { get; } = new Dictionary<string, Map>();
         public List<SynapseObject> SpawnedObjects { get; } = new List<SynapseObject>();
@@ -145,7 +146,7 @@ namespace MapEditor
             {
                 var @object = EditingObjects.First();
                 EditingObjects.Remove(@object);
-                @object.Destroy();
+                @object?.Destroy();
             }
         }
 
@@ -164,16 +165,19 @@ namespace MapEditor
 
         public void SpawnMap(Map map, bool editing = false)
         {
-            if (!LoadedMaps.Contains(map))
-                LoadedMaps.Add(map);
             var newObjects = map.Spawn(editing);
             if (editing) foreach (var newObject in newObjects)
             {
                 new Cursor(newObject, map);
                 EditingObjects.Add(newObject);
             }
-            else foreach (var newObject in newObjects)
-                SpawnedObjects.Add(newObject);
+            else
+            {
+                foreach (var newObject in newObjects)
+                    SpawnedObjects.Add(newObject);
+                if (!LoadedMaps.Contains(map))
+                    LoadedMaps.Add(map);
+            }
         }
 
         public void LoadMapSchematics()
@@ -223,12 +227,12 @@ namespace MapEditor
         public void SaveMapSchematic(Map map, string fileName)
         {
             map.MapSchematics.Clear();
+            SerializedMapPoint position;
+            Vector3 rotation;
 
             foreach (var editingObject in EditingObjects)
             {
                 var room = editingObject.ObjectData[ObjectKeyRoom];
-                SerializedMapPoint position;
-                Vector3 rotation;
 
                 switch (true)
                 {
@@ -258,7 +262,7 @@ namespace MapEditor
                     case true when room is Room synapseRoom:
                         {
                             position = new MapPoint(synapseRoom, editingObject.Position);
-                            rotation = editingObject.Rotation.eulerAngles;
+                            rotation = editingObject.Rotation.eulerAngles - synapseRoom.Rotation.eulerAngles;
                         }
                         break;
                     default:

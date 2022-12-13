@@ -4,8 +4,8 @@ If there are any spelling mistakes, report them to me on discord, because I am a
 
 ## Installation
 1. [Install Synapse](https://github.com/SynapseSL/Synapse/wiki#hosting-guides).
-2. Place the dll VT-API in the synapse reference folder (can be found [here](https://github.com/VT-DevGiT/VT-Api)).
-3. Place the dll file in your plugin directory.
+2. Place the VT-API dll in the synapse reference folder (can be found [here](https://github.com/VT-DevGiT/VT-Api)).
+3. Place the plugin dll in your plugin directory.
 4. Place the Schematics in the schematics directory.
 5. Restart/Start your server.
 

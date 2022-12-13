@@ -48,12 +48,12 @@ namespace MapEditor
 
         private void OnStart()
         {
-            Cursor.ResetID();
+            Plugin.Instance.CurentEditedMap = null;
+            Plugin.Instance.DespawnMaps();
+
             if (!Plugin.Instance.Config.MapsLoaded.Any() || 
                 (Plugin.Instance.Config.MapsLoaded.Count == 1 && Plugin.Instance.Config.MapsLoaded[0] == Plugin.MapNone))
                 return;
-
-            Plugin.Instance.DespawnMaps();
            
             foreach (var mapName in Plugin.Instance.Config.MapsLoaded)
             {

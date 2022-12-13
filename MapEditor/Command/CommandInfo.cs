@@ -20,12 +20,12 @@ namespace MapEditor.Command
             result.State = CommandResultState.Ok;
             result.Message = $@"Info
 Command :
-For more info ont the command enter ""MapEditor Help"".
+For more info on the commands enter ""MapEditor Help"".
 Warning : for some commands you need to ave selected an object ! 
 
 Tool : 
 The tools are revolvers, to use them you must fire them.
-for all tools (except the spawner), you have to pull the cursor.
+for all tools (except the spawner), you have to fire on cursor.
 If you fire the cursor in the center you will get info on the object unless you use the destroyer.
 If you fire the colored facets to interact in one direction, example : fire whith the mover on the green face pointing up for up the schematic.
 
